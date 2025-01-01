@@ -52,7 +52,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp">
                     <div class="circle"></div>
                     Lecturo
                 </a>
@@ -65,10 +65,10 @@
                             <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewAbdimas.jsp">Pengabdian Masyarakat</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
                         </li>
                     </ul>
                 </div>

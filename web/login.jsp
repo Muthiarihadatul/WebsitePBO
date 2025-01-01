@@ -67,19 +67,24 @@
                     </div>
                     <div class="login-title">Lecturo</div>
                     <p class="text-center">Selamat datang kembali!</p>
-                    <form method="post" action="dashboard.jsp">
+                    <form method="POST" action="<%= request.getContextPath() %>/Auth?action=login">
                         <div class="mb-3">
-                            <label for="username" class="form-label">Nama Pengguna</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Nama anda" required>
+                            <label for="username" class="form-label">Kode Pengguna</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Kode anda" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Kata Sandi</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan 6 karakter atau lebih" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan kata sandi" required>
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-masuk">Masuk</button>
                         </div>
                     </form>
+                    <% if (request.getParameter("error") != null) { %>
+                    <div class="alert alert-danger mt-3 text-center">
+                        Username atau password salah!
+                    </div>
+                    <% } %>
                 </div>
             </div>
         </div>

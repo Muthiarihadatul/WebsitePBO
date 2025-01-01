@@ -69,7 +69,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp">
                     <div class="circle"></div>
                     Lecturo
                 </a>

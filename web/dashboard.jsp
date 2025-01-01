@@ -11,6 +11,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecturo</title>
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -87,6 +89,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
                     </li>
+                    <li class="nav-item">
+                        <form method="POST" action="<%= request.getContextPath()%>/Auth">
+                            <button type="submit" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-box-arrow-right"></i> Keluar
+                            </button>
+                        </form>
+                    </li>
+
                 </ul>
             </div>
         </div>

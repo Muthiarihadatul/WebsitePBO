@@ -1,3 +1,9 @@
+<%-- 
+    Document   : dashboard
+    Created on : Dec 15, 2024, 12:30:17?PM
+    Author     : Muthia Rihadatul
+--%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +65,13 @@
     </style>
 </head>
 <body>
+    <%
+    HttpSession userSession = request.getSession();
+    if (userSession != null && userSession.getAttribute("kode") != null) {
+        response.sendRedirect(request.getContextPath()+"/dashboard.jsp");
+        return;
+    }
+    %>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
