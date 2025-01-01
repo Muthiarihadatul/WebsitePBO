@@ -50,7 +50,6 @@ public class Dosen extends Model<Dosen> {
     
     public void login() {
         connect();
-        
     }
     
     public void setKode(String kode) {
@@ -67,5 +66,13 @@ public class Dosen extends Model<Dosen> {
     
     public void setpassword(String password) {
         this.password = password;
+    }
+    
+    public String getKode(){
+        return this.kode;
+    }
+    
+    public String getNama() {
+        return this.nama;
     }
 }
