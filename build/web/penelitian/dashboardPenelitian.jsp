@@ -4,6 +4,10 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="model.Dosen_Penelitian"%>
+<%@page import="model.Dosen"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Penelitian"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -79,7 +83,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
@@ -89,18 +93,29 @@
             </div>
         </nav>  
         
+        <%
+            String kodePenelitian = request.getParameter("kode");
+            Penelitian penelitianModel = new Penelitian();
+            Penelitian penelitian = penelitianModel.find(kodePenelitian);
+            Dosen_Penelitian DPModel = new Dosen_Penelitian();
+            Dosen_Penelitian dp = DPModel.find(kodePenelitian);
+            Dosen dosenModel = new Dosen();
+            Dosen dosen = dosenModel.find(dp.getKodeDosen());
+        %>
         <!-- Dashboard Course -->
         <div class="container mt-5">
             <!-- Header -->
             <div class="course-card d-flex justify-content-between align-items-center">
                 <div>
-                    <h4 class="fw-bold text-dark">K-NEAREST NEIGHBORS (KNN) [CAX15BB]</h4>
-                    <p class="fw-bold text-dark mb-1">ARTIFICIAL INTELLIGENT</p>
-                    <p class="fw-bold text-dark mb-1">10 Desember 2024</p>
+                    <h4 class="fw-bold text-dark"><%= penelitian.getNama()%></h4>
+                    <p class="fw-bold text-dark mb-1"><%= penelitian.getBidang()%></p>
+                    <% SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+                       String formattedDate = outputFormat.format(penelitian.getTanggal()); %>
+                    <p class="fw-bold text-dark mb-1"><%= formattedDate%></p>
                     <br>
                     <br>
                     <br>
-                    <p class="fw-bold text-dark mb-1">Dosen Pengampu: Diva Sanjaya Wardani [DSW]</p>
+                    <p class="fw-bold text-dark mb-1">Penulis: <%= dosen.getNama()%> [<%= dosen.getKode() %>]</p>
                 </div>
             </div>
             
@@ -122,11 +137,11 @@
                     <div class="d-flex justify-content-between align-items-center mt-2">
                         <div class="flex-grow-1">
                             <p class="mb-1 text-muted small">
-                                Haloo epriwan <br>welcome to my penelitian. So, stay tune untuk info selanjutnya dan jangan lupa lupa untuk nyalakan lonceng notifikasi kaliann . Byyyeeee selamat ketemu nanti yaaa broooh <br>-salam dosen baik tapi killer-
+                                <%= penelitian.getDeskripsi()%>
                             </p>
                             <div class="mt-3 d-flex align-items-center">
                                 <div class="btn-url">
-                                    <strong class="text-warning">URL/DOI:</strong> http:/pebeo/penelitian/ai/knn
+                                    <strong class="text-warning">URL/DOI:</strong> <%= penelitian.getTautan()%>
                                 </div>
                             </div>
                         </div>

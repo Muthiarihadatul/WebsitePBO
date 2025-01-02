@@ -4,6 +4,10 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.sql.Date" %>
+<%@page import="model.Dosen"%>
+<%@page import="model.Dosen_Penelitian"%>
+<%@page import="model.Penelitian"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -65,7 +69,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
@@ -74,38 +78,44 @@
                 </div>
             </div>
         </nav>
-
+        
+        <%
+            String kodePenelitian = request.getParameter("kode");
+            Penelitian penelitianModel = new Penelitian();
+            Penelitian penelitian = penelitianModel.find(kodePenelitian);
+        %>
         <!-- Main Content -->
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
                 <h3 class="mb-4 fw-bold text-dark">Edit Penelitian</h3>
                 <!-- Form -->
-                <form action="viewPenelitian.jsp" method="post">
-                    <input type="hidden" name="id" value="id">
+                <form action="<%= request.getContextPath() %>/penelitianController?menu=upd&&kode=<%= penelitian.getKode()%>" method="post">
+                    <input type="hidden" name="kode" value="<%= penelitian.getKode() %>">
+                    <input type="hidden" name="menu" value="upd">
                     <!-- Nama Penelitian -->
                     <div class="mb-3">
                         <label for="penelitianName" class="form-label fw-bolder text-dark">Judul Penelitian</label>
-                        <input type="text" class="form-control" id="penelitianName" name="penelitianName" value="K-Nearest Neighbors (KNN)" required>
+                        <input type="text" class="form-control" id="penelitianName" name="nama" value="<%= penelitian.getNama()%>" required>
                     </div>
                     <!-- Bidang -->
                     <div class="mb-3">
                         <label for="bidangCode" class="form-label fw-bolder text-dark">Bidang</label>
-                        <input type="text" class="form-control" id="bidangCode" name="bidangCode" value="Artificial Intelligent" required>
+                        <input type="text" class="form-control" id="bidangCode" name="bidang" value="<%= penelitian.getBidang() %>" required>
                     </div>
                     <!-- Deskripsi Penelitian -->
                     <div class="mb-3">
                         <label for="penelitianDesk" class="form-label fw-bolder text-dark">Deskripsi</label>
-                        <input type="text" class="form-control" id="penelitianDesk" name="penelitianDesk" value="ini deskripsi penelitian" required>
+                        <input type="text" class="form-control" id="penelitianDesk" name="deskripsi" value="<%= penelitian.getDeskripsi() %>" required>
                     </div>
                     <!-- URL -->
                     <div class="mb-3">
                         <label for="url" class="form-label fw-bolder text-dark">URL/DOI</label>
-                        <input type="text" class="form-control" id="url" name="url" value="http:/pebeo" required>
+                        <input type="text" class="form-control" id="url" name="tautan" value="<%= penelitian.getTautan()%>" required>
                     </div>
                     
                     <div class="mb-3">
                         <label for="tanggal" class="form-label fw-bolder text-dark">Tanggal Pelaksanaan</label>
-                        <input type="date" class="form-control" id="tanggal" name="tanggal" value="10/12/2024" required>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal" value="<%= penelitian.getTanggal()%>" required>
                     </div>
                     
                     <!-- Submit Button -->

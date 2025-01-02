@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,8 +91,8 @@
                         <a class="nav-link" href="abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
                     </li>
                     <li class="nav-item">
-                        <form method="POST" action="<%= request.getContextPath()%>/Auth">
-                            <button type="submit" class="btn btn-warning rounded-pill">
+                        <form method="POST" action="<%= request.getContextPath()%>/Auth?action=logout">
+                            <button type="submit" class="btn btn-warning">
                                 <i class="bi bi-box-arrow-right"></i> Keluar
                             </button>
                         </form>
