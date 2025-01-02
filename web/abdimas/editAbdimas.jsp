@@ -1,6 +1,6 @@
 <%-- 
-    Document   : addAbdimas
-    Created on : Dec 15, 2024, 1:02:31 PM
+    Document   : editAbdimas
+    Created on : Jan 2, 2025, 1:31:39 PM
     Author     : Muthia Rihadatul
 --%>
 
@@ -12,8 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
               rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
               crossorigin="anonymous">
-        <title>Lecturo - Pengabdian Masyarakat</title>
-        <!-- Custom CSS -->
+        <title>Lecturo - Edit Abdimas</title>
         <style>
             body {
                 background-color: #004643; /* Warna latar belakang */
@@ -53,7 +52,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp">
                     <div class="circle"></div>
                     Lecturo
                 </a>
@@ -63,13 +62,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewAbdimas.jsp">Pengabdian Masyarakat</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
                         </li>
                     </ul>
                 </div>
@@ -79,32 +78,34 @@
         <!-- Main Content -->
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
-                <h3 class="mb-4 fw-bold text-dark">Add Activity</h3>
+                <h3 class="mb-4 fw-bold text-dark">Edit Abdimas</h3>
                 <!-- Form -->
-                <form action="viewCourse.jsp" method="post">
+                <form action="viewAbdimas.jsp" method="post">
+                    <input type="hidden" name="id" value="id">
                     <!-- Nama Abdimas -->
                     <div class="mb-3">
-                        <label for="courseName" class="form-label fw-bolder text-dark">Nama Kegiatan</label>
-                        <input type="text" class="form-control" id="courseName" name="courseName" placeholder="Nama kegiatan Pengabdian Masyarakat" required>
+                        <label for="abdimasName" class="form-label fw-bolder text-dark">Nama Kegiatan</label>
+                        <input type="text" class="form-control" id="abdimasName" name="abdimasName" value="Community Service Learning 2024" required>
                     </div>
-                    <!-- desc -->
+                    <!-- Deskripsi Abdimas -->
                     <div class="mb-3">
-                        <label for="classCode" class="form-label fw-bolder text-dark">Deskripsi</label>
-                        <input type="text" class="form-control" id="classCode" name="classCode" placeholder="Deskripsi kegiatan" required>
+                        <label for="abdimasDesk" class="form-label fw-bolder text-dark">Deskripsi</label>
+                        <input type="text" class="form-control" id="abdimasDesk" name="abdimasDesk" value="mau edit desk abdimas" required>
                     </div>
-                    <!-- tgl -->
+                    <!-- Tanggal -->
                     <div class="mb-3">
                         <label for="tanggal" class="form-label fw-bolder text-dark">Tanggal Pelaksanaan</label>
-                        <input type="date" class="form-control" id="tanggal" name="tanggal" placeholder="Pilih tanggal" required>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal" value="10/12/2024" required>
                     </div>
+                    
                     <!-- Submit Button -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-create w-100">Tambah</button>
+                        <button type="submit" class="btn btn-create w-100">Edit</button>
                     </div>
                 </form>
             </div>
         </div>
-
+        
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
