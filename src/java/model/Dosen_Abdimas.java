@@ -44,7 +44,7 @@ public class Dosen_Abdimas extends Model<Dosen_Abdimas>{
         this.kodeDosen = kodeDosen;
     }
     
-    public void setKodePenelitian(int kodePenelitian) {
+    public void setKodeAbdimas(int kodeAbdimas) {
         this.kodeAbdimas = kodeAbdimas;
     }
     

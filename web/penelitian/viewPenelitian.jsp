@@ -4,6 +4,11 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.sql.Date" %>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Dosen_Penelitian"%>
+<%@page import="model.Penelitian"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -82,7 +87,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
@@ -100,33 +105,49 @@
                 <div class="penelitian-button">Daftar Penelitian</div>
                 <a href="addPenelitian.jsp" class="btn penelitian-button rounded-circle"><b>+</b></a>
             </div>
-
+               
+            <%
+                HttpSession userSession = request.getSession();
+                Dosen_Penelitian DPModel = new Dosen_Penelitian();
+                Penelitian penelitianModel = new Penelitian();
+                Penelitian penelitian = new Penelitian();
+                DPModel.where("kodeDosen = '" + userSession.getAttribute("kode") + "'");
+                ArrayList<Dosen_Penelitian> dps = DPModel.get();
+                for (Dosen_Penelitian dp : dps) { 
+                    penelitian = penelitianModel.find(String.valueOf(dp.getKodePenelitian()));
+            %>
             <!-- Penelitian Cards -->
             <div class="row g-4">
                 <div class="col-md-3">
                     <div class="penelitian-card">
                         
                         <div class="p-3">
-                            <h6>K-Nearest Neighbors (KNN)</h6>
-                            <h6>Artificial Intelligent</h6>
+                            <h6><%= penelitian.getNama() %></h6>
+                            <h6><%= penelitian.getBidang() %></h6>
                             <p class="text-muted fw-normal">
-                                Tanggal : 10 Desember 2024
+                                <% SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+                                   String formattedDate = outputFormat.format(penelitian.getTanggal()); %>
+                                Tanggal : <%= formattedDate %>
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href='dashboardPenelitian.jsp?id=(getID)' class="btn view-penelitian-btn w-100 fw-semibold me-2">View Penelitian</a>
+                                <a href='dashboardPenelitian.jsp?kode=<%= penelitian.getKode()%>' class="btn view-penelitian-btn w-100 fw-semibold me-2">View Penelitian</a>
                                 <!-- Edit Icon -->
-                                <a href='editPenelitian.jsp?id=(getID)' class="btn btn-sm btn-transparent me-1" title="Edit">
+                                <a href='editPenelitian.jsp?kode=<%= penelitian.getKode()%>' class="btn btn-sm btn-transparent me-1" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 <!-- Delete Icon -->
-                                <a href='deletePenelitian?id=(getID)' class="btn btn-sm btn-transparent" title="Delete">
-                                    <i class="bi bi-trash3"></i>
-                                </a>
+                                <form method="POST" action="<%= request.getContextPath() %>/penelitianController?menu=del">
+                                    <input type="hidden" name="kode" value="<%= penelitian.getKode()%>">
+                                    <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus penelitian ini?');"></i></button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <%
+                }
+            %>
         </div>
 
         <!-- Bootstrap Bundle JS -->

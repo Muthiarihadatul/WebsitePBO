@@ -4,6 +4,7 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.sql.Date" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -66,7 +67,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
@@ -81,26 +82,27 @@
             <div class="modal-content p-5 shadow-lg w-50">
                 <h3 class="mb-4 fw-bold text-dark">Create Penelitian</h3>
                 <!-- Form -->
-                <form action="viewPenelitian.jsp" method="post">
+                <form action="<%= request.getContextPath() %>/penelitianController?menu=add" method="post">
+                    <input type="hidden" name="menu" value="add">
                     <!-- Nama Penelitian -->
                     <div class="mb-3">
                         <label for="penelitianName" class="form-label fw-bolder text-dark">Judul Penelitian</label>
-                        <input type="text" class="form-control" id="penelitianName" name="penelitianName" placeholder="isi nama penelitian" required>
+                        <input type="text" class="form-control" id="penelitianName" name="nama" placeholder="isi nama penelitian" required>
                     </div>
                     <!-- Bidang -->
                     <div class="mb-3">
                         <label for="bidangCode" class="form-label fw-bolder text-dark">Bidang</label>
-                        <input type="text" class="form-control" id="bidangCode" name="bidangCode" placeholder="isi bidang" required>
+                        <input type="text" class="form-control" id="bidangCode" name="bidang" placeholder="isi bidang" required>
                     </div>
                     <!-- Deskripsi Penelitian -->
                     <div class="mb-3">
                         <label for="penelitianDesk" class="form-label fw-bolder text-dark">Deskripsi</label>
-                        <input type="text" class="form-control" id="penelitianDesk" name="penelitianDesk" placeholder="isi deskripsi penelitian" required>
+                        <input type="text" class="form-control" id="penelitianDesk" name="deskripsi" placeholder="isi deskripsi penelitian" required>
                     </div>
                     <!-- URL -->
                     <div class="mb-3">
                         <label for="url" class="form-label fw-bolder text-dark">URL/DOI</label>
-                        <input type="text" class="form-control" id="url" name="url" placeholder="isi url/doi jurnal" required>
+                        <input type="text" class="form-control" id="url" name="tautan" placeholder="isi url/doi jurnal" required>
                     </div>
                     
                     <div class="mb-3">
