@@ -17,12 +17,12 @@ public class Course_Mahasiswa extends Model<Course_Mahasiswa>{
     
     public Course_Mahasiswa() {
         this.table = "course_mahasiswa";
-        this.primaryKey = "kodeMatkul";
+        this.primaryKey = "nim";
     }
     
     public Course_Mahasiswa(String kodeMatkul, int nim) {
         this.table = "course_mahasiswa";
-        this.primaryKey = "kodeMatkul";
+        this.primaryKey = "nim";
         this.kodeMatkul = kodeMatkul;
         this.nim = nim;
     }

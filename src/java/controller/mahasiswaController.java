@@ -41,19 +41,23 @@ public class mahasiswaController extends HttpServlet {
             String nama = request.getParameter("nama");
             int nim = Integer.parseInt(request.getParameter("nim"));
             String kodeKelas = request.getParameter("kodeKelas");
-
-            mhsModel.setNama(nama);
-            mhsModel.setNIM(nim);
-            mhsModel.setKodeKelas(kodeKelas);
-            mhsModel.insert();
+            
+            Mahasiswa mahasiswa = mhsModel.find(request.getParameter("nim"));
+            
+            if (mahasiswa==null) {
+                mhsModel.setNama(nama);
+                mhsModel.setNIM(nim);
+                mhsModel.setKodeKelas(kodeKelas);
+                mhsModel.insert();
+            }
             cmModel.setKodeMK(kodeMatkul);
             cmModel.setNIM(nim);
             cmModel.insert();
             
         } else if ("del".equals(menu)) {
             int nim = Integer.parseInt(request.getParameter("nim"));
-            mhsModel.setNIM(nim);
-            mhsModel.delete();
+            cmModel.setNIM(nim);
+            cmModel.delete();
         }
 
         response.sendRedirect("Course/mahasiswa/viewMahasiswa.jsp?kodeMK=" + kodeMatkul);
