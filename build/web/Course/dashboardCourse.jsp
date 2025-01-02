@@ -4,6 +4,7 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.DosenKoor"%>
 <%@page import="model.Dosen"%>
 <%@page import="model.Course"%>
@@ -122,13 +123,17 @@
         <!-- Dashboard Course -->
         <%
             String kodeMatkul = request.getParameter("kodeMK");
+            String kodeKelas = request.getParameter("kodeKelas");
             Course courseModel = new Course();
-            Course course = courseModel.find(kodeMatkul);
+            courseModel.where("kodeMatkul = '" + kodeMatkul + "' AND kodeKelas = '" + kodeKelas + "'");
+            ArrayList<Course> c = courseModel.get();
+            
+            Course course = c.get(0);
         %>
         <div class="container mt-4">
             <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
-                <a href="dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>" class="active-button fw-bold">Activity</a>
-                <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Mahasiswa</a>
+                <a href="dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="active-button fw-bold">Activity</a>
+                <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="passive-button fw-bold">Mahasiswa</a>
                 <a href="nilai/viewNilai.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Nilai</a>
             </div>
             <!-- Header -->

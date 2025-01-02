@@ -123,7 +123,7 @@
                                         SKS: <%= (int) item.getSKS() %>
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <a href='dashboardCourse.jsp?kodeMK=<%= item.getKodeMK()%>' class="btn view-course-btn w-100 fw-semibold me-2">View Course</a>
+                                        <a href='dashboardCourse.jsp?kodeMK=<%= item.getKodeMK()%>&&kodeKelas=<%= item.getKodeKelas() %>' class="btn view-course-btn w-100 fw-semibold me-2">View Course</a>
                                         <!-- Edit Icon -->
                                         <a href='editCourse.jsp?kodeMK=<%= item.getKodeMK() %>' class="btn btn-sm btn-transparent me-1" title="Edit">
                                             <i class="bi bi-pencil"></i>
@@ -131,6 +131,7 @@
                                         <!-- Delete Icon -->
                                         <form method="POST" action="<%= request.getContextPath() %>/courseController?menu=del">
                                             <input type="hidden" name="kodeMatkul" value="<%= item.getKodeMK()%>">
+                                            <input type="hidden" name="kodeKelas" value="<%= item.getKodeKelas() %>">
                                             <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?');"></i></button>
                                         </form>
                                     </div>

@@ -69,7 +69,9 @@
     <body>
         <%
             Course courseModel = new Course();
-            Course course = courseModel.find(request.getParameter("kodeMK"));
+            courseModel.where("kodeMatkul = '" + request.getParameter("kodeMK") + "' AND kodeKelas = '" + request.getParameter("kodeKelas") + "'");
+            ArrayList<Course> c = courseModel.get();
+            Course course = c.get(0);
         %>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -107,11 +109,11 @@
         <div class="container mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
-                    <a href="${pageContext.request.contextPath}/Course/dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Activity</a>
-                    <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="active-button fw-bold">Mahasiswa</a>
+                    <a href="${pageContext.request.contextPath}/Course/dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="passive-button fw-bold">Activity</a>
+                    <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="active-button fw-bold">Mahasiswa</a>
                     <a href="${pageContext.request.contextPath}/Course/nilai/viewNilai.jsp" class="passive-button fw-bold">Nilai</a>
                 </div>
-                <a href="addMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="btn course-button"><b>Tambah Mahasiswa +</b></a>
+                <a href="addMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="btn course-button"><b>Tambah Mahasiswa +</b></a>
             </div>
             <table class="table table-hover table-bordered rounded-2"> 
                 <thead class="table-success">
@@ -128,6 +130,7 @@
                         ArrayList<Course_Mahasiswa> cms = CMModel.get();
                         for (Course_Mahasiswa cm : cms) { 
                             mahasiswa = MhsModel.find(String.valueOf(cm.getNIM()));
+                            if (mahasiswa.getKodeKelas().equals(course.getKodeKelas())) {
                     %>
                     <tr>
                         <td><%= mahasiswa.getNIM() %></td>
@@ -137,11 +140,14 @@
                             <form method="POST" action="<%= request.getContextPath() %>/mahasiswaController?menu=del">
                                 <input type="hidden" name="nim" value="<%= mahasiswa.getNIM()%>">
                                 <input type="hidden" name="kodeMatkul" value="<%= course.getKodeMK() %>">
+                                <input type="hidden" name="kodeKelas" value="<%= course.getKodeKelas()%>">
                                 <button type="submit" class="btn btn-sm btn-warning"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus mahasiswa ini?');"></i></button>
                             </form>
                         </td>
                     </tr>
-                    <% } %>
+                    <%
+                            }
+                        } %>
                 </tbody>
             </table>
         </div>

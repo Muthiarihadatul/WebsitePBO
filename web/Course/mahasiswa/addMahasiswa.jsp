@@ -4,6 +4,7 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -79,8 +80,11 @@
         
         <%
             String kodeMatkul = request.getParameter("kodeMK");
+            String kodeKelas = request.getParameter("kodeKelas");
             Course courseModel = new Course();
-            Course course = courseModel.find(kodeMatkul);
+            courseModel.where("kodeMatkul = '" + kodeMatkul + "' AND kodeKelas = '" + kodeKelas + "'");
+            ArrayList<Course> c = courseModel.get();
+            Course course = c.get(0);
         %>
 
         <!-- Main Content -->
@@ -103,7 +107,7 @@
                     <!-- Kode Kelas -->
                     <div class="mb-3">
                         <label for="classCode" class="form-label fw-bolder text-dark">Kode Kelas</label>
-                        <input type="text" class="form-control" id="classCode" name="kodeKelas" placeholder="isi kode kelas mahasiswa" required>
+                        <input type="text" class="form-control" id="classCode" name="kodeKelas" value="<%= course.getKodeKelas() %>" required>
                     </div>
                     <!-- Submit Button -->
                     <div class="text-center">

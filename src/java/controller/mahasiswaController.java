@@ -36,11 +36,11 @@ public class mahasiswaController extends HttpServlet {
         Mahasiswa mhsModel = new Mahasiswa();
         Course_Mahasiswa cmModel = new Course_Mahasiswa();
         String kodeMatkul = request.getParameter("kodeMatkul");
+        String kodeKelas = request.getParameter("kodeKelas");
 
         if ("add".equals(menu)) {
             String nama = request.getParameter("nama");
             int nim = Integer.parseInt(request.getParameter("nim"));
-            String kodeKelas = request.getParameter("kodeKelas");
             
             Mahasiswa mahasiswa = mhsModel.find(request.getParameter("nim"));
             
@@ -60,7 +60,7 @@ public class mahasiswaController extends HttpServlet {
             cmModel.delete();
         }
 
-        response.sendRedirect("Course/mahasiswa/viewMahasiswa.jsp?kodeMK=" + kodeMatkul);
+        response.sendRedirect("Course/mahasiswa/viewMahasiswa.jsp?kodeMK=" + kodeMatkul + "&&kodeKelas=" + kodeKelas);
     }
     
     @Override
