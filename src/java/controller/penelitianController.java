@@ -6,9 +6,11 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -17,7 +19,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Course;
 import model.Course_Mahasiswa;
 import model.Dosen_Penelitian;
 import model.Mahasiswa;
@@ -44,19 +45,14 @@ public class penelitianController extends HttpServlet {
         Dosen_Penelitian dpModel = new Dosen_Penelitian();
 
         if ("add".equals(menu)) {
+            Integer kode = null;
             String nama = request.getParameter("nama");
             String bidang = request.getParameter("bidang");
             String deskripsi = request.getParameter("deskripsi");
-            String tanggalString = request.getParameter("tanggal");
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date tanggal = null;
-            try {
-                tanggal = formatter.parse(tanggalString);
-            } catch (ParseException ex) {
-                Logger.getLogger(penelitianController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Date tanggal = Date.valueOf(request.getParameter("tanggal"));
             String tautan = request.getParameter("tautan");
-
+            
+            penelitianModel.setKode(kode);
             penelitianModel.setNama(nama);
             penelitianModel.setBidang(bidang);
             penelitianModel.setDeskripsi(deskripsi);
@@ -64,7 +60,10 @@ public class penelitianController extends HttpServlet {
             penelitianModel.setTautan(tautan);
             penelitianModel.insert();
             dpModel.setKodeDosen(String.valueOf(session.getAttribute("kode")));
-            dpModel.setKodePenelitian(penelitianModel.getKode());
+            penelitianModel.select("*");
+            penelitianModel.addQuery("ORDER BY kode DESC LIMIT 1");
+            ArrayList<Penelitian> penelitian = penelitianModel.get();
+            dpModel.setKodePenelitian(penelitian.get(0).getKode());
             dpModel.insert();
             
         } else if ("upd".equals(menu)) {
@@ -72,15 +71,7 @@ public class penelitianController extends HttpServlet {
             String nama = request.getParameter("nama");
             String bidang = request.getParameter("bidang");
             String deskripsi = request.getParameter("deskripsi");
-            String tanggalString = request.getParameter("tanggal");
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date tanggal = null;
-            try {
-                tanggal = formatter.parse(tanggalString);
-            } catch (ParseException ex) {
-                Logger.getLogger(penelitianController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            Date tanggal = Date.valueOf(request.getParameter("tanggal"));
             String tautan = request.getParameter("tautan");
 
             penelitianModel.setKode(kode);

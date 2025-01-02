@@ -6,14 +6,14 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
  * @author LENOVO
  */
 public class Penelitian extends Model<Penelitian>{
-    private int kode;
+    private Integer kode;
     private String nama;
     private String bidang;
     private String deskripsi;
@@ -25,7 +25,7 @@ public class Penelitian extends Model<Penelitian>{
         this.primaryKey = "kode";
     }
     
-    public Penelitian(int kode, String nama, String bidang, String deskripsi, Date tanggal, String tautan) {
+    public Penelitian(Integer kode, String nama, String bidang, String deskripsi, Date tanggal, String tautan) {
         this.table = "penelitian";
         this.primaryKey = "kode";
         this.kode = kode;
@@ -54,7 +54,7 @@ public class Penelitian extends Model<Penelitian>{
         }
     }
     
-    public void setKode(int kode) {
+    public void setKode(Integer kode) {
         this.kode = kode;
     }
     
