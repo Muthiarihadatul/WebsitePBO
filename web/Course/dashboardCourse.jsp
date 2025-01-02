@@ -4,6 +4,10 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<<<<<<< HEAD
+<%@page import="model.DosenKoor"%>
+=======
+>>>>>>> 3fa3b78db5aa52f1efa630686281ccde41f38ae3
 <%@page import="model.Dosen"%>
 <%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -143,10 +147,21 @@
                         Dosen dosen = dosenModel.find(course.getDosenPengampu());
                     %>
                     <p class="fw-bold text-dark mb-1">Dosen Pengampu: <%= dosen.getNama() %> [<%= dosen.getKode()%>]</p>
+<<<<<<< HEAD
+                    <%
+                        DosenKoor dkModel = new DosenKoor();
+                        DosenKoor dk = dkModel.find(kodeMatkul);
+                        
+                        Dosen dModel = new Dosen();
+                        Dosen d = dModel.find(dk.getKodeDosen());
+                    %>
+=======
+>>>>>>> 3fa3b78db5aa52f1efa630686281ccde41f38ae3
                     <p class="fw-bold text-dark mb-1">Dosen Koordinator: 
-                        <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#dosenKoorModal">Muthia Rihadatul A [MRA]</a>
+                        <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#dosenKoorModal"><%= d.getNama() %> [<%= d.getKode() %>]</a>
                     </p>
 
+                    
                     <!-- Modal Popup -->
                     <div class="modal fade" id="dosenKoorModal" tabindex="-1" aria-labelledby="dosenKoorModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -157,11 +172,11 @@
                                 </div>
                                 <div class="modal-body text-black">
                                     <!-- Konten Informasi Dosen -->
-                                    <h6 class="fw-bold">Kode : MRA</h6>
-                                    <h7 class="fw-bold">Nama: Muthia Rihadatul Aisyi</h7>
-                                    <p>Email: muthia@gmail.com</p>
-                                    <p>Nomor Telepon: 08123456789</p>
-                                    <p>Koordinator Mata Kuliah: Pemrograman Berorientasi Objek</p>
+                                    <h6 class="fw-bold">Kode : <%= d.getKode() %></h6>
+                                    <h7 class="fw-bold">Nama: <%= d.getNama() %></h7>
+                                    <p>Email: <%= dk.getEmail() %></p>
+                                    <p>Nomor Telepon: <%= dk.getKontak() %></p>
+                                    <p>Koordinator Mata Kuliah: <%= course.getNama() %> [<%= course.getKodeMK() %>]</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-custom" data-bs-dismiss="modal">Tutup</button>

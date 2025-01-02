@@ -4,6 +4,10 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Mahasiswa"%>
+<%@page import="model.Course_Mahasiswa"%>
+<%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -63,6 +67,10 @@
         </style>
     </head>
     <body>
+        <%
+            Course courseModel = new Course();
+            Course course = courseModel.find(request.getParameter("kodeMK"));
+        %>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -76,7 +84,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
@@ -87,16 +95,23 @@
                     </ul>
                 </div>
             </div>
-        </nav>  
+        </nav>
+                        
+        <%
+            Course_Mahasiswa CMModel = new Course_Mahasiswa();
+            //Course_Mahasiswa cm = CMModel.find(course.getKodeMK());
+            Mahasiswa MhsModel = new Mahasiswa();
+            Mahasiswa mahasiswa = new Mahasiswa();
+        %>
         
         <div class="container mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
                     <a href="${pageContext.request.contextPath}/Course/dashboardCourse.jsp" class="passive-button fw-bold">Activity</a>
-                    <a href="viewMahasiswa.jsp" class="active-button fw-bold">Mahasiswa</a>
+                    <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="active-button fw-bold">Mahasiswa</a>
                     <a href="${pageContext.request.contextPath}/Course/nilai/viewNilai.jsp" class="passive-button fw-bold">Nilai</a>
                 </div>
-                <a href="addMahasiswa.jsp" class="btn course-button"><b>Tambah Mahasiswa +</b></a>
+                <a href="addMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="btn course-button"><b>Tambah Mahasiswa +</b></a>
             </div>
             <table class="table table-hover table-bordered rounded-2"> 
                 <thead class="table-success">
@@ -108,26 +123,25 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                        CMModel.where("kodeMatkul = '" + course.getKodeMK() + "'");
+                        ArrayList<Course_Mahasiswa> cms = CMModel.get();
+                        for (Course_Mahasiswa cm : cms) { 
+                            mahasiswa = MhsModel.find(String.valueOf(cm.getNIM()));
+                    %>
                     <tr>
-                        <td>1301223357</td>
-                        <td>Nasywa Alif Widyasari</td>
-                        <td>IF-46-06</td>
+                        <td><%= mahasiswa.getNIM() %></td>
+                        <td><%= mahasiswa.getNama() %></td>
+                        <td><%= mahasiswa.getKodeKelas() %></td>
                         <td>
-                            <a href='deleteMahasiswa?id=(getID)' class="btn btn-sm btn-warning" title="Delete">
-                                <i class="bi bi-trash3"></i>
-                            </a>
+                            <form method="POST" action="<%= request.getContextPath() %>/mahasiswaController?menu=del">
+                                <input type="hidden" name="nim" value="<%= mahasiswa.getNIM()%>">
+                                <input type="hidden" name="kodeMatkul" value="<%= course.getKodeMK() %>">
+                                <button type="submit" class="btn btn-sm btn-warning"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus mahasiswa ini?');"></i></button>
+                            </form>
                         </td>
                     </tr>
-                    <tr>
-                        <td>1301223401</td>
-                        <td>Farah Saraswati</td>
-                        <td>IF-46-06</td>
-                        <td>
-                            <a href='deleteMahasiswa?id=(getID)' class="btn btn-sm btn-warning" title="Delete">
-                                <i class="bi bi-trash3"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>

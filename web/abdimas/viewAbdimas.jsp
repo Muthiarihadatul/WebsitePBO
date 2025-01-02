@@ -4,6 +4,11 @@
     Author     : Muthia Rihadatul
 --%>
 
+<%@page import="java.sql.Date" %>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Dosen_Abdimas"%>
+<%@page import="model.Abdimas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +19,7 @@
               crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
               rel="stylesheet">
-        <title>Lecturo - Course</title>
+        <title>Lecturo - Abdimas</title>
         <style>
             body {
                 background-color: #004643;
@@ -35,7 +40,7 @@
                 border-radius: 50%;
                 margin-right: 10px;
             }
-            .course-button {
+            .abdimas-button {
                 background-color: #F9BC60;
                 color: #004643;
                 font-weight: bold;
@@ -43,19 +48,19 @@
                 padding: 8px 16px;
                 border-radius: 20px;
             }
-            .course-card {
+            .abdimas-card {
                 background-color: #ABD1C6;
                 color: #004643;
                 border-radius: 12px;
                 overflow: hidden;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             }
-            .view-course-btn {
+            .view-abdimas-btn {
                 background-color: #004643;
                 color: #ffffff;
                 border: none;
             }
-            .view-course-btn:hover {
+            .view-abdimas-btn:hover {
                 background-color: #F9BC60;
                 color: #004643;
             }
@@ -69,7 +74,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp">
                     <div class="circle"></div>
                     Lecturo
                 </a>
@@ -79,53 +84,69 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewAbdimas.jsp">Pengabdian Masyarakat</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
+
         <!-- Content -->
         <div class="container mt-4">
-            <!-- Course Button -->
+            <!-- abdimas Button -->
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="course-button">Abdimas</div>
-                <a href="addAbdimas.jsp" class="btn course-button rounded-circle"><b>+</b></a>
+                <div class="abdimas-button">Daftar Abdimas</div>
+                <a href="addAbdimas.jsp" class="btn abdimas-button rounded-circle"><b>+</b></a>
             </div>
-
-            <!-- Course Cards -->
+               
+            <%
+                HttpSession userSession = request.getSession();
+                Dosen_Abdimas DAModel = new Dosen_Abdimas();
+                Abdimas abdimasModel = new Abdimas();
+                Abdimas abdimas = new Abdimas();
+                DAModel.where("kodeDosen = '" + userSession.getAttribute("kode") + "'");
+                ArrayList<Dosen_Abdimas> das = DAModel.get();
+                for (Dosen_Abdimas dp : das) { 
+                    abdimas = abdimasModel.find(String.valueOf(dp.getKodeAbdimas()));
+            %>
+            <!-- Abdimas Cards -->
             <div class="row g-4">
                 <div class="col-md-3">
-                    <div class="course-card">
+                    <div class="abdimas-card">
                         
                         <div class="p-3">
-                            
-                            <h6>Community Service Learning 2024</h6>
+                            <h6><%= abdimas.getNama() %></h6>
                             <p class="text-muted fw-normal">
-                                Tanggal : 28 Agustus 2024
+                                <% SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+                                   String formattedDate = outputFormat.format(abdimas.getTanggal()); %>
+                                Tanggal : <%= formattedDate %>
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href='dashboardAbdimas.jsp?id=(getID)' class="btn view-course-btn w-100 fw-semibold me-2">View Abdimas</a>
+                                <a href='dashboardAbdimas.jsp?kode=<%= abdimas.getKode()%>' class="btn view-abdimas-btn w-100 fw-semibold me-2">View Abdimas</a>
                                 <!-- Edit Icon -->
-                                <a href='editAbdimas.jsp?id=(getID)' class="btn btn-sm btn-transparent me-1" title="Edit">
+                                <a href='editAbdimas.jsp?kode=<%= abdimas.getKode()%>' class="btn btn-sm btn-transparent me-1" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 <!-- Delete Icon -->
-                                <a href='deleteAbdimas.jsp?id=(getID)' class="btn btn-sm btn-transparent" title="Delete">
-                                    <i class="bi bi-trash3"></i>
-                                </a>
+                                <form method="POST" action="<%= request.getContextPath() %>/abdimasController?menu=del">
+                                    <input type="hidden" name="kode" value="<%= abdimas.getKode()%>">
+                                    <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus abdimas ini?');"></i></button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <%
+                }
+            %>
         </div>
 
         <!-- Bootstrap Bundle JS -->
@@ -134,4 +155,3 @@
                 crossorigin="anonymous"></script>
     </body>
 </html>
-

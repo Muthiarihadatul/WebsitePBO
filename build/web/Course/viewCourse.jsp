@@ -4,6 +4,8 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -79,7 +81,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
@@ -100,36 +102,48 @@
                 <div class="course-button">Daftar Course</div>
                 <a href="addCourse.jsp" class="btn course-button rounded-circle"><b>+</b></a>
             </div>
+            
+            <%
+                HttpSession userSession = request.getSession();
+                Course course = new Course();
+                course.where("dosenPengampu = '" + userSession.getAttribute("kode") + "'");
+                ArrayList<Course> rs = course.get();
+                for (Course item : rs) { %>
+                    <!-- Course Cards -->
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <div class="course-card">
 
-            <!-- Course Cards -->
-            <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="course-card">
-                        
-                        <div class="p-3">
-                            <h6>CAK3BAB3</h6>
-                            <h6>PEMROGRAMAN BERORIENTASI OBJEK</h6>
-                            <p class="text-muted fw-normal">
-                                IF-46-06
-                                <br>
-                                SKS: 4
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href='dashboardCourse.jsp?id=(getID)' class="btn view-course-btn w-100 fw-semibold me-2">View Course</a>
-                                <!-- Edit Icon -->
-                                <a href='editCourse.jsp?id=(getID)' class="btn btn-sm btn-transparent me-1" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <!-- Delete Icon -->
-                                <a href='deleteCourse?id=(getID)' class="btn btn-sm btn-transparent" title="Delete">
-                                    <i class="bi bi-trash3"></i>
-                                </a>
+                                <div class="p-3">
+                                    <h6><%= item.getKodeMK() %></h6>
+                                    <h6><%= item.getNama() %></h6>
+                                    <p class="text-muted fw-normal">
+                                        <%= item.getKodeKelas() %>
+                                        <br>
+                                        SKS: <%= (int) item.getSKS() %>
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href='dashboardCourse.jsp?kodeMK=<%= item.getKodeMK()%>' class="btn view-course-btn w-100 fw-semibold me-2">View Course</a>
+                                        <!-- Edit Icon -->
+                                        <a href='editCourse.jsp?kodeMK=<%= item.getKodeMK() %>' class="btn btn-sm btn-transparent me-1" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <!-- Delete Icon -->
+                                        <form method="POST" action="<%= request.getContextPath() %>/courseController?menu=del">
+                                            <input type="hidden" name="kodeMatkul" value="<%= item.getKodeMK()%>">
+                                            <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?');"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            <%        
+                }
+            %>
+
+            
 
         <!-- Bootstrap Bundle JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 

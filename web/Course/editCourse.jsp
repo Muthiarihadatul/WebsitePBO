@@ -4,6 +4,8 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="model.Dosen"%>
+<%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -76,34 +78,50 @@
         </nav>
 
         <!-- Main Content -->
+        
+        <%
+        String kode = request.getParameter("kodeMK");
+        Course courseModel = new Course();
+        Course course = courseModel.find(kode);
+        if (course == null) {
+    %>
+        <div class="container my-5">
+            <div class="alert alert-danger text-center">
+                <h4>Data course tidak ditemukan.</h4>
+                <a href="Course/viewCourse.jsp" class="btn btn-primary mt-3">Kembali ke Menu Course</a>
+            </div>
+        </div>
+    <%
+        } else {
+    %>
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
                 <h3 class="mb-4 fw-bold text-dark">Edit Course</h3>
                 <!-- Form -->
-                <form action="viewCourse.jsp" method="post">
-                    <input type="hidden" name="id" value="id">
+                <form action="<%= request.getContextPath() %>/courseController?menu=upd&&kodeMK= <%= course.getKodeMK() %>" method="post">
                     <!-- Nama Mata Kuliah -->
+                    <input type="hidden" name="kodeMatkul" value="<%= course.getKodeMK() %>" >
                     <div class="mb-3">
                         <label for="courseName" class="form-label fw-bolder text-dark">Nama Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseName" name="courseName" value="PEMROGRAMAN BERORIENTASI OBJEK" required>
+                        <input type="text" class="form-control" id="courseName" name="nama" value="<%= course.getNama() %>" required>
                     </div>
                     <!-- Kelas -->
                     <div class="mb-3">
                         <label for="classCode" class="form-label fw-bolder text-dark">Kelas</label>
-                        <input type="text" class="form-control" id="classCode" name="classCode" value="IF-46-06" required>
-                    </div>
-                    <!-- Kode Mata Kuliah -->
-                    <div class="mb-3">
-                        <label for="courseCode" class="form-label fw-bolder text-dark">Kode Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseCode" name="courseCode" value="CAK3BAB3" required>
+                        <input type="text" class="form-control" id="classCode" name="kodeKelas" value="<%= course.getKodeKelas() %>" required>
                     </div>
                     <!-- SKS -->
                     <div class="mb-3">
                         <label for="sks" class="form-label fw-bolder text-dark">SKS</label>
-                        <input type="number" class="form-control" id="sks" name="sks" value="4" required>
+                        <input type="number" class="form-control" id="sks" name="sks" value="<%= (int) course.getSKS() %>" required>
                     </div>
+                    <%
+                        HttpSession userSession = request.getSession();
+                        Dosen dosenModel = new Dosen();
+                        Dosen dosen = dosenModel.find(String.valueOf(userSession.getAttribute("kode")));
+                    %>
                     <!-- Dosen -->
-                    <p class="text-black fw-bolder">Dosen: Muthia Rihadatul [MRA]</p>
+                    <p class="text-black fw-bolder">Dosen: <%= dosen.getNama() %> [<%= dosen.getKode() %>]</p>
                     <!-- Submit Button -->
                     <div class="text-center">
                         <button type="submit" class="btn btn-create w-100">Edit</button>
@@ -117,4 +135,7 @@
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                 crossorigin="anonymous"></script>
     </body>
+    <%
+        }
+    %>
 </html>
