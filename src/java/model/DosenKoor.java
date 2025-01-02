@@ -35,7 +35,6 @@ public class DosenKoor extends Model<DosenKoor>{
     public DosenKoor toModel(ResultSet rs) {
         try {
             return new DosenKoor(
-                // (#1.4) Lakukan get resultSet dari tiap parameter kolom yang ada
                 this.kodeDosen = rs.getString("kodeDosen"),
                 this.matkulKoor = rs.getString("matkulKoor"),
                 this.kontakKoor = rs.getString("kontakKoor"),

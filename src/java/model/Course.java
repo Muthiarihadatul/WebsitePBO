@@ -37,7 +37,6 @@ public class Course extends Model<Course> {
     public Course toModel(ResultSet rs) {
         try {
             return new Course(
-                // (#1.4) Lakukan get resultSet dari tiap parameter kolom yang ada
                 this.kodeMatkul = rs.getString("kodeMatkul"),
                 this.nama = rs.getString("nama"),
                 this.kodeKelas = rs.getString("kodeKelas"),

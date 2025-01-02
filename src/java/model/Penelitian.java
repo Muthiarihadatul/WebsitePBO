@@ -40,7 +40,6 @@ public class Penelitian extends Model<Penelitian>{
     public Penelitian toModel(ResultSet rs) {
         try {
             return new Penelitian(
-                // (#1.4) Lakukan get resultSet dari tiap parameter kolom yang ada
                 this.kode = rs.getInt("kode"),
                 this.nama = rs.getString("nama"),
                 this.bidang = rs.getString("bidang"),

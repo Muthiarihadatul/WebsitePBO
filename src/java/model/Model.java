@@ -32,7 +32,6 @@ public abstract class Model<E> {
         public void connect() {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                // (#1.1) Sesuaikan formatting con dengan nama DB anda
                 con = DriverManager.getConnection( "jdbc:mysql://localhost:3306/lecturo","root",""); 
                 stmt = con.createStatement();
                 isConnected = true;

@@ -35,7 +35,6 @@ public class Abdimas extends Model<Abdimas>{
     public Abdimas toModel(ResultSet rs) {
         try {
             return new Abdimas(
-                // (#1.4) Lakukan get resultSet dari tiap parameter kolom yang ada
                 this.kode = rs.getInt("kode"),
                 this.nama = rs.getString("nama"),
                 this.deskripsi = rs.getString("deskripsi"),
