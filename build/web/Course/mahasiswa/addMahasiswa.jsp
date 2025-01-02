@@ -4,6 +4,7 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -53,7 +54,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp">
                     <div class="circle"></div>
                     Lecturo
                 </a>
@@ -63,25 +64,32 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewAbdimas.jsp">Pengabdian Masyarakat</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        
+        <%
+            String kodeMatkul = request.getParameter("kodeMK");
+            Course courseModel = new Course();
+            Course course = courseModel.find(kodeMatkul);
+        %>
 
         <!-- Main Content -->
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
-                <h3 class="mb-4 fw-bold text-dark">Create Course</h3>
+                <h3 class="mb-4 fw-bold text-dark">Create Mahasiswa</h3>
                 <!-- Form -->
-                <form action="viewMahasiswa.jsp" method="post">
+                <form action="<%= request.getContextPath() %>/mahasiswaController?menu=add" method="post">
+                    <input type="hidden" name="kodeMatkul" value="<%= course.getKodeMK()%>">
                     <!-- NIM -->
                     <div class="mb-3">
                         <label for="nim" class="form-label fw-bolder text-dark">NIM</label>
@@ -90,12 +98,12 @@
                     <!-- Nama -->
                     <div class="mb-3">
                         <label for="name" class="form-label fw-bolder text-dark">Nama</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="isi nama mahasiswa" required>
+                        <input type="text" class="form-control" id="name" name="nama" placeholder="isi nama mahasiswa" required>
                     </div>
                     <!-- Kode Kelas -->
                     <div class="mb-3">
                         <label for="classCode" class="form-label fw-bolder text-dark">Kode Kelas</label>
-                        <input type="text" class="form-control" id="classCode" name="classCode" placeholder="isi kode kelas mahasiswa" required>
+                        <input type="text" class="form-control" id="classCode" name="kodeKelas" placeholder="isi kode kelas mahasiswa" required>
                     </div>
                     <!-- Submit Button -->
                     <div class="text-center">

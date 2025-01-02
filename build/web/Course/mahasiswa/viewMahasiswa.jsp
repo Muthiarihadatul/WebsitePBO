@@ -107,7 +107,7 @@
         <div class="container mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
-                    <a href="${pageContext.request.contextPath}/Course/dashboardCourse.jsp" class="passive-button fw-bold">Activity</a>
+                    <a href="${pageContext.request.contextPath}/Course/dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Activity</a>
                     <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="active-button fw-bold">Mahasiswa</a>
                     <a href="${pageContext.request.contextPath}/Course/nilai/viewNilai.jsp" class="passive-button fw-bold">Nilai</a>
                 </div>
