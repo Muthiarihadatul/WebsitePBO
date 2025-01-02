@@ -4,6 +4,8 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="model.Dosen"%>
+<%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -87,21 +89,6 @@
                 background-color: #004643;
                 color: #ABD1C6;
             }
-            
-            .custom-modal {
-                background-color: #ABD1C6;
-            }
-
-            .btn-custom {
-                background-color: #F9BC60;
-                border-color: #F9BC60;
-                color: black; /* Pastikan teks terlihat */
-            }
-            .btn-custom:hover {
-                background-color: #004643; /* Warna lebih gelap untuk efek hover */
-                border-color: #004643;
-                color: white; /* Pastikan teks terlihat */
-            }
         </style>
     </head>
     <body>
@@ -118,7 +105,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
@@ -132,21 +119,30 @@
         </nav>  
         
         <!-- Dashboard Course -->
+        <%
+            String kodeMatkul = request.getParameter("kodeMK");
+            Course courseModel = new Course();
+            Course course = courseModel.find(kodeMatkul);
+        %>
         <div class="container mt-4">
             <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
-                <a href="dashboardCourse.jsp" class="active-button fw-bold">Activity</a>
-                <a href="mahasiswa/viewMahasiswa.jsp" class="passive-button fw-bold">Mahasiswa</a>
-                <a href="nilai/viewNilai.jsp" class="passive-button fw-bold">Nilai</a>
+                <a href="dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>" class="active-button fw-bold">Activity</a>
+                <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Mahasiswa</a>
+                <a href="nilai/viewNilai.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Nilai</a>
             </div>
             <!-- Header -->
             <div class="course-card d-flex justify-content-between align-items-center">
                 <div>
-                    <h4 class="fw-bold text-dark">PEMROGRAMAN BERORIENTASI OBJEK [CAX15BB]</h4>
-                    <p class="fw-bold text-dark mb-1">IF-46-06</p>
-                    <p class="fw-bold text-dark mb-1">SKS: 6</p>
+                    <h4 class="fw-bold text-dark"><%= course.getNama()%> [<%= course.getKodeMK()%>]</h4>
+                    <p class="fw-bold text-dark mb-1"><%= course.getKodeKelas() %></p>
+                    <p class="fw-bold text-dark mb-1">SKS: <%= course.getSKS() %></p>
                     <br>
                     <br>
-                    <p class="fw-bold text-dark mb-1">Dosen Pengampu: Azra Feby Awfiyah [AZF]</p>
+                    <%
+                        Dosen dosenModel = new Dosen();
+                        Dosen dosen = dosenModel.find(course.getDosenPengampu());
+                    %>
+                    <p class="fw-bold text-dark mb-1">Dosen Pengampu: <%= dosen.getNama() %> [<%= dosen.getKode()%>]</p>
                     <p class="fw-bold text-dark mb-1">Dosen Koordinator: 
                         <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#dosenKoorModal">Muthia Rihadatul A [MRA]</a>
                     </p>
@@ -173,8 +169,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
