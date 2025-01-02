@@ -4,10 +4,7 @@
     Author     : Azra Feby Awfiyah
 --%>
 
-<<<<<<< HEAD
 <%@page import="model.DosenKoor"%>
-=======
->>>>>>> 3fa3b78db5aa52f1efa630686281ccde41f38ae3
 <%@page import="model.Dosen"%>
 <%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -147,7 +144,6 @@
                         Dosen dosen = dosenModel.find(course.getDosenPengampu());
                     %>
                     <p class="fw-bold text-dark mb-1">Dosen Pengampu: <%= dosen.getNama() %> [<%= dosen.getKode()%>]</p>
-<<<<<<< HEAD
                     <%
                         DosenKoor dkModel = new DosenKoor();
                         DosenKoor dk = dkModel.find(kodeMatkul);
@@ -155,8 +151,6 @@
                         Dosen dModel = new Dosen();
                         Dosen d = dModel.find(dk.getKodeDosen());
                     %>
-=======
->>>>>>> 3fa3b78db5aa52f1efa630686281ccde41f38ae3
                     <p class="fw-bold text-dark mb-1">Dosen Koordinator: 
                         <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#dosenKoorModal"><%= d.getNama() %> [<%= d.getKode() %>]</a>
                     </p>
