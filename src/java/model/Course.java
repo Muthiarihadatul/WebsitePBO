@@ -50,10 +50,6 @@ public class Course extends Model<Course> {
         }
     }
     
-    public void login() {
-        connect();
-    }
-    
     public void setKodeMK(String kodeMK) {
         this.kodeMatkul = kodeMK;
     }

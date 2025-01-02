@@ -44,7 +44,11 @@ public class Dosen_Abdimas extends Model<Dosen_Abdimas>{
         this.kodeDosen = kodeDosen;
     }
     
+<<<<<<< HEAD
     public void setKodeAbdimas(int kodeAbdimas) {
+=======
+    public void setKodePenelitian(int kodePenelitian) {
+>>>>>>> 3fa3b78db5aa52f1efa630686281ccde41f38ae3
         this.kodeAbdimas = kodeAbdimas;
     }
     
@@ -55,4 +59,8 @@ public class Dosen_Abdimas extends Model<Dosen_Abdimas>{
     public int getKodeAbdimas() {
         return this.kodeAbdimas;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3fa3b78db5aa52f1efa630686281ccde41f38ae3
