@@ -97,10 +97,10 @@
             String kodeAbdimas = request.getParameter("kode");
             Abdimas abdimasModel = new Abdimas();
             Abdimas abdimas = abdimasModel.find(kodeAbdimas);
-            Dosen_Abdimas DPModel = new Dosen_Abdimas();
-            Dosen_Abdimas dp = DPModel.find(kodeAbdimas);
+            Dosen_Abdimas DAModel = new Dosen_Abdimas();
+            Dosen_Abdimas da = DAModel.find(kodeAbdimas);
             Dosen dosenModel = new Dosen();
-            Dosen dosen = dosenModel.find(dp.getKodeDosen());
+            Dosen dosen = dosenModel.find(da.getKodeDosen());
         %>
         <!-- Dashboard Course -->
         <div class="container mt-5">
