@@ -112,13 +112,13 @@
                                 Tanggal : 28 Agustus 2024
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href='dashboardCourse.jsp?id=(getID)' class="btn view-course-btn w-100 fw-semibold me-2">View Abdimas</a>
+                                <a href='dashboardAbdimas.jsp?id=(getID)' class="btn view-course-btn w-100 fw-semibold me-2">View Abdimas</a>
                                 <!-- Edit Icon -->
-                                <a href='editCourse.jsp?id=(getID)' class="btn btn-sm btn-transparent me-1" title="Edit">
+                                <a href='editAbdimas.jsp?id=(getID)' class="btn btn-sm btn-transparent me-1" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 <!-- Delete Icon -->
-                                <a href='deleteCourse.jsp?id=(getID)' class="btn btn-sm btn-transparent" title="Delete">
+                                <a href='deleteAbdimas.jsp?id=(getID)' class="btn btn-sm btn-transparent" title="Delete">
                                     <i class="bi bi-trash3"></i>
                                 </a>
                             </div>

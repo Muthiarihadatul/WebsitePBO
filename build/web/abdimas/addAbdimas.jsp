@@ -79,20 +79,20 @@
         <!-- Main Content -->
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
-                <h3 class="mb-4 fw-bold text-dark">Create Course</h3>
+                <h3 class="mb-4 fw-bold text-dark">Add Activity</h3>
                 <!-- Form -->
                 <form action="viewCourse.jsp" method="post">
-                    <!-- Nama Mata Kuliah -->
+                    <!-- Nama Abdimas -->
                     <div class="mb-3">
                         <label for="courseName" class="form-label fw-bolder text-dark">Nama Kegiatan</label>
-                        <input type="text" class="form-control" id="courseName" name="courseName" placeholder="isi nama mata kuliah" required>
+                        <input type="text" class="form-control" id="courseName" name="courseName" placeholder="Nama kegiatan Pengabdian Masyarakat" required>
                     </div>
-                    <!-- Kelas -->
+                    <!-- desc -->
                     <div class="mb-3">
                         <label for="classCode" class="form-label fw-bolder text-dark">Deskripsi</label>
-                        <input type="text" class="form-control" id="classCode" name="classCode" placeholder="isi kelas" required>
+                        <input type="text" class="form-control" id="classCode" name="classCode" placeholder="Deskripsi kegiatan" required>
                     </div>
-                    <!-- Kode Mata Kuliah -->
+                    <!-- tgl -->
                     <div class="mb-3">
                         <label for="tanggal" class="form-label fw-bolder text-dark">Tanggal Pelaksanaan</label>
                         <input type="date" class="form-control" id="tanggal" name="tanggal" placeholder="Pilih tanggal" required>

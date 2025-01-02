@@ -87,6 +87,21 @@
                 background-color: #004643;
                 color: #ABD1C6;
             }
+            
+            .custom-modal {
+                background-color: #ABD1C6;
+            }
+
+            .btn-custom {
+                background-color: #F9BC60;
+                border-color: #F9BC60;
+                color: black; /* Pastikan teks terlihat */
+            }
+            .btn-custom:hover {
+                background-color: #004643; /* Warna lebih gelap untuk efek hover */
+                border-color: #004643;
+                color: white; /* Pastikan teks terlihat */
+            }
         </style>
     </head>
     <body>
@@ -132,7 +147,34 @@
                     <br>
                     <br>
                     <p class="fw-bold text-dark mb-1">Dosen Pengampu: Azra Feby Awfiyah [AZF]</p>
-                    <p class="fw-bold text-dark mb-1">Dosen Koordinator: Muthia Rihaadatul A [MRA]</p>
+                    <p class="fw-bold text-dark mb-1">Dosen Koordinator: 
+                        <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#dosenKoorModal">Muthia Rihadatul A [MRA]</a>
+                    </p>
+
+                    <!-- Modal Popup -->
+                    <div class="modal fade" id="dosenKoorModal" tabindex="-1" aria-labelledby="dosenKoorModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content custom-modal">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-black" id="dosenKoorModalLabel">Informasi Dosen Koordinator</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-black">
+                                    <!-- Konten Informasi Dosen -->
+                                    <h6 class="fw-bold">Kode : MRA</h6>
+                                    <h7 class="fw-bold">Nama: Muthia Rihadatul Aisyi</h7>
+                                    <p>Email: muthia@gmail.com</p>
+                                    <p>Nomor Telepon: 08123456789</p>
+                                    <p>Koordinator Mata Kuliah: Pemrograman Berorientasi Objek</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-custom" data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 
