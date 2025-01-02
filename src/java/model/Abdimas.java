@@ -78,8 +78,4 @@ public class Abdimas extends Model<Abdimas>{
     public Date getTanggal() {
         return this.tanggal;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 3fa3b78db5aa52f1efa630686281ccde41f38ae3
