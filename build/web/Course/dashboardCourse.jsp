@@ -4,6 +4,8 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.DosenKoor"%>
 <%@page import="model.Dosen"%>
 <%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -121,13 +123,17 @@
         <!-- Dashboard Course -->
         <%
             String kodeMatkul = request.getParameter("kodeMK");
+            String kodeKelas = request.getParameter("kodeKelas");
             Course courseModel = new Course();
-            Course course = courseModel.find(kodeMatkul);
+            courseModel.where("kodeMatkul = '" + kodeMatkul + "' AND kodeKelas = '" + kodeKelas + "'");
+            ArrayList<Course> c = courseModel.get();
+            
+            Course course = c.get(0);
         %>
         <div class="container mt-4">
             <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
-                <a href="dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>" class="active-button fw-bold">Activity</a>
-                <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Mahasiswa</a>
+                <a href="dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="active-button fw-bold">Activity</a>
+                <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="passive-button fw-bold">Mahasiswa</a>
                 <a href="nilai/viewNilai.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Nilai</a>
             </div>
             <!-- Header -->
@@ -143,10 +149,18 @@
                         Dosen dosen = dosenModel.find(course.getDosenPengampu());
                     %>
                     <p class="fw-bold text-dark mb-1">Dosen Pengampu: <%= dosen.getNama() %> [<%= dosen.getKode()%>]</p>
+                    <%
+                        DosenKoor dkModel = new DosenKoor();
+                        DosenKoor dk = dkModel.find(kodeMatkul);
+                        
+                        Dosen dModel = new Dosen();
+                        Dosen d = dModel.find(dk.getKodeDosen());
+                    %>
                     <p class="fw-bold text-dark mb-1">Dosen Koordinator: 
-                        <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#dosenKoorModal">Muthia Rihadatul A [MRA]</a>
+                        <a href="#" class="text-dark" data-bs-toggle="modal" data-bs-target="#dosenKoorModal"><%= d.getNama() %> [<%= d.getKode() %>]</a>
                     </p>
 
+                    
                     <!-- Modal Popup -->
                     <div class="modal fade" id="dosenKoorModal" tabindex="-1" aria-labelledby="dosenKoorModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -157,11 +171,11 @@
                                 </div>
                                 <div class="modal-body text-black">
                                     <!-- Konten Informasi Dosen -->
-                                    <h6 class="fw-bold">Kode : MRA</h6>
-                                    <h7 class="fw-bold">Nama: Muthia Rihadatul Aisyi</h7>
-                                    <p>Email: muthia@gmail.com</p>
-                                    <p>Nomor Telepon: 08123456789</p>
-                                    <p>Koordinator Mata Kuliah: Pemrograman Berorientasi Objek</p>
+                                    <h6 class="fw-bold">Kode : <%= d.getKode() %></h6>
+                                    <h7 class="fw-bold">Nama: <%= d.getNama() %></h7>
+                                    <p>Email: <%= dk.getEmail() %></p>
+                                    <p>Nomor Telepon: <%= dk.getKontak() %></p>
+                                    <p>Koordinator Mata Kuliah: <%= course.getNama() %> [<%= course.getKodeMK() %>]</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary btn-custom" data-bs-dismiss="modal">Tutup</button>

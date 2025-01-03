@@ -3,49 +3,42 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
-
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 
 /**
  *
  * @author LENOVO
  */
-public class Penelitian extends Model<Penelitian>{
+public class Abdimas extends Model<Abdimas>{
     private Integer kode;
     private String nama;
-    private String bidang;
     private String deskripsi;
     private Date tanggal;
-    private String tautan;
     
-    public Penelitian() {
-        this.table = "penelitian";
+    public Abdimas() {
+        this.table = "abdimas";
         this.primaryKey = "kode";
     }
     
-    public Penelitian(Integer kode, String nama, String bidang, String deskripsi, Date tanggal, String tautan) {
-        this.table = "penelitian";
+    public Abdimas(Integer kode, String nama, String deskripsi, Date tanggal) {
+        this.table = "abdimas";
         this.primaryKey = "kode";
         this.kode = kode;
         this.nama = nama;
-        this.bidang = bidang;
         this.deskripsi = deskripsi;
         this.tanggal = tanggal;
-        this.tautan = tautan;
     }
     
     @Override
-    public Penelitian toModel(ResultSet rs) {
+    public Abdimas toModel(ResultSet rs) {
         try {
-            return new Penelitian(
+            return new Abdimas(
                 this.kode = rs.getInt("kode"),
                 this.nama = rs.getString("nama"),
-                this.bidang = rs.getString("bidang"),
                 this.deskripsi = rs.getString("deskripsi"),
-                this.tanggal = rs.getDate("tanggal"),
-                this.tautan = rs.getString("tautan")
+                this.tanggal = rs.getDate("tanggal")
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -61,20 +54,12 @@ public class Penelitian extends Model<Penelitian>{
         this.nama = nama;
     }
     
-    public void setBidang(String bidang) {
-        this.bidang = bidang;
-    }
-    
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
     }
     
     public void setTanggal(Date tanggal) {
         this.tanggal = tanggal;
-    }
-    
-    public void setTautan(String tautan) {
-        this.tautan = tautan;
     }
     
     public int getKode() {
@@ -85,19 +70,11 @@ public class Penelitian extends Model<Penelitian>{
         return this.nama;
     }
     
-    public String getBidang() {
-        return this.bidang;
-    }
-    
     public String getDeskripsi() {
         return this.deskripsi;
     }
     
     public Date getTanggal() {
         return this.tanggal;
-    }
-    
-    public String getTautan() {
-        return this.tautan;
     }
 }

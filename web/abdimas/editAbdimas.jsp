@@ -4,6 +4,10 @@
     Author     : Muthia Rihadatul
 --%>
 
+<%@page import="java.sql.Date" %>
+<%@page import="model.Dosen"%>
+<%@page import="model.Dosen_Abdimas"%>
+<%@page import="model.Abdimas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -65,7 +69,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
@@ -74,28 +78,34 @@
                 </div>
             </div>
         </nav>
-
+        
+        <%
+            String kodeAbdimas = request.getParameter("kode");
+            Abdimas abdimasModel = new Abdimas();
+            Abdimas abdimas = abdimasModel.find(kodeAbdimas);
+        %>
         <!-- Main Content -->
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
                 <h3 class="mb-4 fw-bold text-dark">Edit Abdimas</h3>
                 <!-- Form -->
-                <form action="viewAbdimas.jsp" method="post">
-                    <input type="hidden" name="id" value="id">
+                <form action="<%= request.getContextPath() %>/abdimasController?menu=upd&&kode=<%= abdimas.getKode()%>" method="post">
+                    <input type="hidden" name="kode" value="<%= abdimas.getKode() %>">
+                    <input type="hidden" name="menu" value="upd">
                     <!-- Nama Abdimas -->
                     <div class="mb-3">
                         <label for="abdimasName" class="form-label fw-bolder text-dark">Nama Kegiatan</label>
-                        <input type="text" class="form-control" id="abdimasName" name="abdimasName" value="Community Service Learning 2024" required>
+                        <input type="text" class="form-control" id="abdimasName" name="nama" value="<%= abdimas.getNama()%>" required>
                     </div>
                     <!-- Deskripsi Abdimas -->
                     <div class="mb-3">
                         <label for="abdimasDesk" class="form-label fw-bolder text-dark">Deskripsi</label>
-                        <input type="text" class="form-control" id="abdimasDesk" name="abdimasDesk" value="mau edit desk abdimas" required>
+                        <input type="text" class="form-control" id="abdimasDesk" name="deskripsi" value="<%= abdimas.getDeskripsi() %>" required>
                     </div>
                     <!-- Tanggal -->
                     <div class="mb-3">
                         <label for="tanggal" class="form-label fw-bolder text-dark">Tanggal Pelaksanaan</label>
-                        <input type="date" class="form-control" id="tanggal" name="tanggal" value="10/12/2024" required>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal" value="<%= abdimas.getTanggal()%>" required>
                     </div>
                     
                     <!-- Submit Button -->

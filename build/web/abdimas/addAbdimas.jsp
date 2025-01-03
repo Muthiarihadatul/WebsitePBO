@@ -81,22 +81,24 @@
             <div class="modal-content p-5 shadow-lg w-50">
                 <h3 class="mb-4 fw-bold text-dark">Add Activity</h3>
                 <!-- Form -->
-                <form action="viewCourse.jsp" method="post">
+                <form action="<%= request.getContextPath() %>/abdimasController?menu=add" method="post">
+                    <input type="hidden" name="menu" value="add">
                     <!-- Nama Abdimas -->
                     <div class="mb-3">
-                        <label for="courseName" class="form-label fw-bolder text-dark">Nama Kegiatan</label>
-                        <input type="text" class="form-control" id="courseName" name="courseName" placeholder="Nama kegiatan Pengabdian Masyarakat" required>
+                        <label for="abdimasName" class="form-label fw-bolder text-dark">Nama Kegiatan</label>
+                        <input type="text" class="form-control" id="abdimasName" name="nama" placeholder="nama kegiatan pengabdian masyarakat" required>
                     </div>
-                    <!-- desc -->
+                    <!-- Deskripsi Abdimas -->
                     <div class="mb-3">
-                        <label for="classCode" class="form-label fw-bolder text-dark">Deskripsi</label>
-                        <input type="text" class="form-control" id="classCode" name="classCode" placeholder="Deskripsi kegiatan" required>
+                        <label for="abdimasDesk" class="form-label fw-bolder text-dark">Deskripsi</label>
+                        <input type="text" class="form-control" id="abdimasDesk" name="deskripsi" placeholder="deskripsi kegiatan" required>
                     </div>
-                    <!-- tgl -->
+                    <!-- Tanggal -->
                     <div class="mb-3">
                         <label for="tanggal" class="form-label fw-bolder text-dark">Tanggal Pelaksanaan</label>
                         <input type="date" class="form-control" id="tanggal" name="tanggal" placeholder="Pilih tanggal" required>
                     </div>
+                    
                     <!-- Submit Button -->
                     <div class="text-center">
                         <button type="submit" class="btn btn-create w-100">Tambah</button>

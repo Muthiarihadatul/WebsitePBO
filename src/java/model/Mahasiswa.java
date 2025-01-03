@@ -33,7 +33,6 @@ public class Mahasiswa extends Model<Mahasiswa> {
     public Mahasiswa toModel(ResultSet rs) {
         try {
             return new Mahasiswa(
-                // (#1.4) Lakukan get resultSet dari tiap parameter kolom yang ada
                 this.nim = rs.getInt("nim"),
                 this.nama = rs.getString("nama"),
                 this.kodeKelas = rs.getString("kodeKelas")

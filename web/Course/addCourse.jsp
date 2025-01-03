@@ -4,6 +4,7 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="model.Dosen"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -63,7 +64,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
@@ -81,21 +82,21 @@
             <div class="modal-content p-5 shadow-lg w-50">
                 <h3 class="mb-4 fw-bold text-dark">Create Course</h3>
                 <!-- Form -->
-                <form action="viewCourse.jsp" method="post">
+                <form action="<%= request.getContextPath() %>/courseController?menu=add" method="post">
+                    <!-- Kode Mata Kuliah -->
+                    <div class="mb-3">
+                        <label for="courseCode" class="form-label fw-bolder text-dark">Kode Mata Kuliah</label>
+                        <input type="text" class="form-control" id="courseCode" name="kodeMatkul" placeholder="isi kode mata kuliah" required>
+                    </div>
                     <!-- Nama Mata Kuliah -->
                     <div class="mb-3">
                         <label for="courseName" class="form-label fw-bolder text-dark">Nama Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseName" name="courseName" placeholder="isi nama mata kuliah" required>
+                        <input type="text" class="form-control" id="courseName" name="nama" placeholder="isi nama mata kuliah" required>
                     </div>
                     <!-- Kelas -->
                     <div class="mb-3">
                         <label for="classCode" class="form-label fw-bolder text-dark">Kelas</label>
-                        <input type="text" class="form-control" id="classCode" name="classCode" placeholder="isi kelas" required>
-                    </div>
-                    <!-- Kode Mata Kuliah -->
-                    <div class="mb-3">
-                        <label for="courseCode" class="form-label fw-bolder text-dark">Kode Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseCode" name="courseCode" placeholder="isi kode mata kuliah" required>
+                        <input type="text" class="form-control" id="classCode" name="kodeKelas" placeholder="isi kelas" required>
                     </div>
                     <!-- SKS -->
                     <div class="mb-3">
@@ -103,10 +104,16 @@
                         <input type="number" class="form-control" id="sks" name="sks" placeholder="isi sks" required>
                     </div>
                     <!-- Dosen -->
-                    <p class="text-black fw-bolder">Dosen: Muthia Rihadatul [MRA]</p>
+                    <%
+                        HttpSession userSession = request.getSession();
+                        Dosen dosenModel = new Dosen();
+                        Dosen dosen = dosenModel.find(String.valueOf(userSession.getAttribute("kode")));
+                    %>
+                    <p class="text-black fw-bolder">Dosen: <%= dosen.getNama() %> [<%= dosen.getKode()%>]</p>
+                    <input type="hidden" name="dosenPengampu" value="<%= dosen.getKode()%>">
                     <!-- Submit Button -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-create w-100">Tambah</button>
+                        <button type="submit" class="btn btn-create w-100"">Tambah</button>
                     </div>
                 </form>
             </div>

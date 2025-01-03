@@ -4,6 +4,10 @@
     Author     : Muthia Rihadatul
 --%>
 
+<%@page import="model.Dosen_Abdimas"%>
+<%@page import="model.Dosen"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="model.Abdimas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,7 +18,7 @@
               crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
               rel="stylesheet">
-        <title>Lecturo - Dashboard Penelitian</title>
+        <title>Lecturo - Dashboard Abdimas</title>
         <!-- Custom CSS -->
         <style>
             body {
@@ -79,7 +83,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
@@ -89,17 +93,28 @@
             </div>
         </nav>  
         
+        <%
+            String kodeAbdimas = request.getParameter("kode");
+            Abdimas abdimasModel = new Abdimas();
+            Abdimas abdimas = abdimasModel.find(kodeAbdimas);
+            Dosen_Abdimas DAModel = new Dosen_Abdimas();
+            Dosen_Abdimas da = DAModel.find(kodeAbdimas);
+            Dosen dosenModel = new Dosen();
+            Dosen dosen = dosenModel.find(da.getKodeDosen());
+        %>
         <!-- Dashboard Course -->
         <div class="container mt-5">
             <!-- Header -->
             <div class="course-card d-flex justify-content-between align-items-center">
                 <div>
-                    <h4 class="fw-bold text-dark">Community Service Learning 2024</h4>
-                    <p class="fw-bold text-dark mb-1">28 Agustus 2024</p>
+                    <h4 class="fw-bold text-dark"><%= abdimas.getNama()%></h4>
+                    <% SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+                       String formattedDate = outputFormat.format(abdimas.getTanggal()); %>
+                    <p class="fw-bold text-dark mb-1"><%= formattedDate%></p>
                     <br>
                     <br>
                     <br>
-                    <p class="fw-bold text-dark mb-1">Dosen pembimbing: Diva Sanjaya Wardani [DSW]</p>
+                    <p class="fw-bold text-dark mb-1">Dosen pembimbing: <%= dosen.getNama()%> [<%= dosen.getKode() %>]</p>
                 </div>
             </div>
             
@@ -121,7 +136,7 @@
                     <div class="d-flex justify-content-between align-items-center mt-2">
                         <div class="flex-grow-1">
                             <p class="mb-1 text-muted small">
-                                Haloo epriwan <br>welcome to my pengabdian masyarakaty. So, stay tune untuk kegiatan selanjutnya selanjutnya dan jangan lupa lupa untuk nyalakan lonceng notifikasi kaliann . Byyyeeee selamat ketemu nanti yaaa broooh <br>-salam dosen baik tapi killer-
+                                <%= abdimas.getDeskripsi()%>
                             </p>
                         </div>
                     </div>
@@ -135,4 +150,3 @@
                 crossorigin="anonymous"></script>
     </body>
 </html>
-
