@@ -25,6 +25,7 @@ import model.Mahasiswa;
 import model.Penelitian;
 import model.Quiz;
 import model.Dosen;
+import model.Mahasiswa_Quiz;
 
 /**
  *
@@ -56,6 +57,22 @@ public class quizController extends HttpServlet {
             quizModel.setDeskripsi(deskripsi);
             quizModel.setKodeKelas(kodeKls);
             quizModel.insert();
+            
+            Course_Mahasiswa cmModel = new Course_Mahasiswa();
+            cmModel.where("kodeMatkul = '" + kodeMK + "'");
+            ArrayList<Course_Mahasiswa> cms = cmModel.get();
+            for (Course_Mahasiswa cm : cms) {
+                Mahasiswa mahasiswaModel = new Mahasiswa();
+                Mahasiswa mahasiswa = mahasiswaModel.find(String.valueOf(cm.getNIM()));
+                if (mahasiswa.getKodeKelas().equals(kodeKls)) {
+                    Mahasiswa_Quiz mqModel = new Mahasiswa_Quiz();
+                    mqModel.setNIM(String.valueOf(mahasiswa.getNIM()));
+                    mqModel.setNilai(0);
+                    mqModel.setNamaQuiz(nama);
+                    mqModel.setKodeKelas(kodeKls);
+                    mqModel.insert();
+                }
+            }
         } else if ("upd".equals(menu)) {
             String nama = request.getParameter("nama");
             String deskripsi = request.getParameter("deskripsi");
@@ -66,9 +83,13 @@ public class quizController extends HttpServlet {
             quizModel.setKodeKelas(kodeKls);
             quizModel.update();
 
-        } else if ("del".equals(menu)) {
-            quizModel.setKodeMK(kodeMK);
+        } else if ("delQuiz".equals(menu)) {
+            String nama = request.getParameter("nama");
+            quizModel.setNama(nama);
             quizModel.delete();
+            Mahasiswa_Quiz mqModel = new Mahasiswa_Quiz();
+            mqModel.setNamaQuiz(nama);
+            mqModel.delete();
         }
 
         response.sendRedirect("Course/dashboardCourse.jsp?kodeMK=" + kodeMK + "&&kodeKelas=" + kodeKls);
@@ -82,6 +103,5 @@ public class quizController extends HttpServlet {
             response.sendRedirect("index.jsp");
             return;
         }
-    } 
+    }
 }
-
