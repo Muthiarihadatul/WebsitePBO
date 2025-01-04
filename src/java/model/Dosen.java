@@ -47,10 +47,6 @@ public class Dosen extends Model<Dosen> {
         }
     }
     
-    public void login() {
-        connect();
-    }
-    
     public void setKode(String kode) {
         this.kode = kode;
     }
