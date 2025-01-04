@@ -103,6 +103,11 @@
                         <label for="sks" class="form-label fw-bolder text-dark">SKS</label>
                         <input type="number" class="form-control" id="sks" name="sks" placeholder="isi sks" required>
                     </div>
+                    <!-- Kode Dosen Koor -->
+                    <div class="mb-3">
+                        <label for="kodeDosenK" class="form-label fw-bolder text-dark">Kode Dosen Koor</label>
+                        <input type="text" class="form-control" id="kodeDosenK" name="kodeDosenK" placeholder="isi kode dosen koor" required>
+                    </div>
                     <!-- Dosen -->
                     <%
                         HttpSession userSession = request.getSession();
