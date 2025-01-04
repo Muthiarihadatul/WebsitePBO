@@ -90,6 +90,18 @@ public class quizController extends HttpServlet {
             Mahasiswa_Quiz mqModel = new Mahasiswa_Quiz();
             mqModel.setNamaQuiz(nama);
             mqModel.delete();
+        } else if ("delNilai".equals(menu)){
+            String nama = request.getParameter("nama");
+            String nim = request.getParameter("nim");
+            
+            Mahasiswa_Quiz mqModel = new Mahasiswa_Quiz();
+            mqModel.setNIM(nim);
+            mqModel.setNilai(0);
+            mqModel.setNamaQuiz(nama);
+            mqModel.setKodeKelas(kodeKls);
+            mqModel.where("nim = '" + nim + "' AND namaQuiz = '" + nama + "'");
+            mqModel.update2();
+            
         }
 
         response.sendRedirect("Course/dashboardCourse.jsp?kodeMK=" + kodeMK + "&&kodeKelas=" + kodeKls);

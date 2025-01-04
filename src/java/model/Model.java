@@ -95,6 +95,27 @@ public abstract class Model<E> {
                 disconnect();
             }
         }
+        
+        public void update2() {
+            try {
+                connect();
+                String values = "";
+                for (Field field : this.getClass().getDeclaredFields()) {
+                    field.setAccessible(true);
+                    Object value = field.get(this);
+                    if (value != null) {
+                        values += field.getName() + " = '" + value + "', ";
+                    }
+                }
+                int result = stmt.executeUpdate("UPDATE " + table + " SET " + values.substring(0, values.length() - 2)
+                                                + " WHERE " + where);
+                message = "info update: " + result + " rows affected";
+            } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
+                message = e.getMessage();
+            } finally {
+                disconnect();
+            }
+        }
 
         public void delete() {
             try {

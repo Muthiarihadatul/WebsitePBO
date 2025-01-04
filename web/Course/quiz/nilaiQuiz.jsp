@@ -145,9 +145,13 @@
                             </a>
                         </td>
                         <td>
-                            <a href='deleteMahasiswa?id=(getID)' class="btn btn-sm btn-danger" title="Delete">
-                                <i class="bi bi-trash3"></i>
-                            </a>
+                            <form method="POST" action="<%= request.getContextPath() %>/quizController?menu=delNilai">
+                                <input type="hidden" name="kodeMatkul" value="<%= kodeMatkul %>">
+                                <input type="hidden" name="kodeKelas" value="<%= kodeKelas %>">
+                                <input type="hidden" name="nim" value="<%= item.getNim()%>">
+                                <input type="hidden" name="nama" value="<%= item.getNamaQuiz() %>">
+                                <button type="submit" class="btn btn-sm btn-danger"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus nilai ini?');"></i></button>
+                            </form>
                         </td>
                         
                     </tr>
