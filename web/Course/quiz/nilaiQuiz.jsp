@@ -4,6 +4,10 @@
     Author     : Muthia Rihadatul
 --%>
 
+<%@page import="model.Mahasiswa"%>
+<%@page import="model.Mahasiswa_Quiz"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Course"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -62,6 +66,16 @@
             }
         </style>
     </head>
+    <%
+            String kodeMatkul = request.getParameter("kodeMK");
+            String kodeKelas = request.getParameter("kodeKelas");
+            String namaQuiz = request.getParameter("namaQuiz");
+            Course courseModel = new Course();
+            courseModel.where("kodeMatkul = '" + kodeMatkul + "' AND kodeKelas = '" + kodeKelas + "'");
+            ArrayList<Course> c = courseModel.get();
+            
+            Course course = c.get(0);
+    %>
     <body>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -76,7 +90,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
@@ -89,16 +103,17 @@
             </div>
         </nav>  
         
+        
         <div class="container mt-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
-                    <a href="dashboardCourse.jsp" class="active-button fw-bold">Activity</a>
-                    <a href="mahasiswa/viewMahasiswa.jsp" class="passive-button fw-bold">Mahasiswa</a>
-                    <a href="Nilai/viewAllNilai.jsp" class="passive-button fw-bold">Nilai</a>
+                    <a href="${pageContext.request.contextPath}/Course/dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="passive-button fw-bold">Activity</a>
+                    <a href="${pageContext.request.contextPath}/Course/mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="passive-button fw-bold">Mahasiswa</a>
+                    <a href="#" class="active-button fw-bold">Nilai</a>
                 </div>
             </div>
                 <div class="p-0"> 
-                            <h6 class="fs-5">Quiz 1: Class Diagram</h6>
+                            <h6 class="fs-5"><%= namaQuiz%></h6>
                             </div>
             <table class="table table-hover table-bordered rounded-2"> 
                 <thead class="table-success text-center">
@@ -111,10 +126,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                        Mahasiswa_Quiz mqModel = new Mahasiswa_Quiz();
+                        mqModel.where("namaQuiz = '" + namaQuiz + "' AND kodeKelas = '" + kodeKelas + "'");
+                        ArrayList<Mahasiswa_Quiz> mq = mqModel.get();
+                        for (Mahasiswa_Quiz item : mq) {
+                            Mahasiswa mahasiswa = new Mahasiswa();
+                            Mahasiswa m = mahasiswa.find(item.getNim());
+                    %>
                     <tr>
-                        <td>1301223357</td>
-                        <td>Nasywa Alif Widyasari</td>
-                        <td>100</td>
+                        <td><%= item.getNim() %></td>
+                        <td><%= m.getNama() %></td>
+                        <td><%= item.getNilai() %></td>
                         <!-- Edit Icon -->
                         <td>
                             <a href='editNilaiQuiz.jsp?id=(getID)' class="btn btn-sm btn-warning" title="Edit">
@@ -128,39 +151,9 @@
                         </td>
                         
                     </tr>
-                    <tr>
-                        <td>1301223401</td>
-                        <td>Farah Saraswati</td>
-                        <td>95</td>
-                        <!-- Edit Icon -->
-                        <td>
-                            <a href='editNilaiQuiz.jsp?id=(getID)' class="btn btn-sm btn-warning" title="Edit">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a href='deleteMahasiswa?id=(getID)' class="btn btn-sm btn-danger" title="Delete">
-                                <i class="bi bi-trash3"></i>
-                            </a>
-                        </td>
-                        
-                    </tr>
-                    
-                    <tr>
-                        <td>1301223248</td>
-                        <td>Muthia Rihadatul</td>
-                        <td>0</td>
-                        <!-- Edit Icon -->
-                        <td>
-                            <a href='editNilaiQuiz.jsp?id=(getID)' class="btn btn-sm btn-warning" title="Edit">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a href='deleteMahasiswa?id=(getID)' class="btn btn-sm btn-danger" title="Delete">
-                                <i class="bi bi-trash3"></i>
-                            </a>
-                        </td>
+                    <%
+                        }
+                    %>
                         
                     </tr>
                 </tbody>

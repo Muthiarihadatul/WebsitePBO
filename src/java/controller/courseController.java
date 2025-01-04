@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Course;
+import model.DosenKoor;
 
 /**
  *
@@ -48,6 +49,20 @@ public class courseController extends HttpServlet {
             courseModel.setSKS(sks);
             courseModel.setDosenPengampu(dosenPengampu);
             courseModel.insert();
+            
+            String koor = request.getParameter("kodeDosenK");
+            DosenKoor dkModel = new DosenKoor();
+            dkModel.where("kodeDosen = '" + koor + "'");
+            ArrayList<DosenKoor> dks = dkModel.get();
+            DosenKoor dk = dks.get(0);
+            
+            DosenKoor koorModel = new DosenKoor();
+            koorModel.setKodeDosen(dk.getKodeDosen());
+            koorModel.setMK(kodeMatkul);
+            koorModel.setKontak(dk.getKontak());
+            koorModel.setEmail(dk.getEmail());
+            koorModel.insert();
+            
             
         } else if ("upd".equals(menu)) {
             String kodeMatkul = request.getParameter("kodeMatkul");

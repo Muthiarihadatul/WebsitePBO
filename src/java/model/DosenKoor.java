@@ -46,6 +46,22 @@ public class DosenKoor extends Model<DosenKoor>{
         }
     }
     
+    public void setKodeDosen(String kodeDosen) {
+        this.kodeDosen = kodeDosen;
+    }
+    
+    public void setMK(String kodeMK) {
+        this.matkulKoor = kodeMK;
+    }
+    
+    public void setKontak(String kontak) {
+        this.kontakKoor = kontak;
+    }
+    
+    public void setEmail(String email){
+        this.email = email;
+    }
+    
     public String getKodeDosen() {
         return this.kodeDosen;
     }

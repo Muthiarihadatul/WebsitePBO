@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Farah
+ * @author LENOVO
  */
 public class Quiz extends Model<Quiz>{
     private String nama;
@@ -23,12 +23,12 @@ public class Quiz extends Model<Quiz>{
     }
     
     public Quiz(String nama, String kodeMatkul, String deskripsi, String kodeKelas) {
-        this.table = "quiz";
+        this.table = "course";
         this.primaryKey = "nama";
-        this.nama = nama;
         this.kodeMatkul = kodeMatkul;
-        this.deskripsi = deskripsi;
+        this.nama = nama;
         this.kodeKelas = kodeKelas;
+        this.deskripsi = deskripsi;
     }
     
     @Override
@@ -38,7 +38,7 @@ public class Quiz extends Model<Quiz>{
                 this.nama = rs.getString("nama"),
                 this.kodeMatkul = rs.getString("kodeMatkul"),
                 this.deskripsi = rs.getString("deskripsi"),
-                this.kodeKelas= rs.getString("kodeKelas")
+                this.kodeKelas = rs.getString("kodeKelas")
             );
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -46,12 +46,12 @@ public class Quiz extends Model<Quiz>{
         }
     }
     
-    public void setKodeMK(String kodeMK) {
-        this.kodeMatkul = kodeMK;
-    }
-    
     public void setNama(String nama) {
         this.nama = nama;
+    }
+    
+    public void setKodeMK(String kodeMK) {
+        this.kodeMatkul = kodeMK;
     }
     
     public void setKodeKelas(String kodeKelas) {
@@ -62,19 +62,15 @@ public class Quiz extends Model<Quiz>{
         this.deskripsi = deskripsi;
     }
     
-    public String getKodeMK(){
-        return this.kodeMatkul;
-    }
-    
-    public String getNama(){
+    public String getNama() {
         return this.nama;
     }
     
-    public String getKodeKelas(){
-        return this.kodeKelas;
+    public String getKodeMK() {
+        return this.kodeMatkul;
     }
     
-    public String getDeskripsi(){
+    public String getDeskripsi() {
         return this.deskripsi;
-    } 
+    }
 }

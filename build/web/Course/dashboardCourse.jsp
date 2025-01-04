@@ -4,6 +4,7 @@
     Author     : Azra Feby Awfiyah
 --%>
 
+<%@page import="model.Quiz"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.DosenKoor"%>
 <%@page import="model.Dosen"%>
@@ -132,9 +133,9 @@
         %>
         <div class="container mt-4">
             <div class="d-flex justify-space-between align-items-center mb-4 gap-3">
-                <a href="dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="active-button fw-bold">Activity</a>
-                <a href="mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="passive-button fw-bold">Mahasiswa</a>
-                <a href="nilai/viewNilai.jsp?kodeMK=<%= course.getKodeMK()%>" class="passive-button fw-bold">Nilai</a>
+                <a href="${pageContext.request.contextPath}/Course/dashboardCourse.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="active-button fw-bold">Activity</a>
+                <a href="${pageContext.request.contextPath}/Course/mahasiswa/viewMahasiswa.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>" class="passive-button fw-bold">Mahasiswa</a>
+                <a href="#" class="passive-button fw-bold">Nilai</a>
             </div>
             <!-- Header -->
             <div class="course-card d-flex justify-content-between align-items-center">
@@ -188,13 +189,20 @@
 
             <!-- Create Quiz Button -->
             <div class="mt-5 text-start">
-                <a href="quiz/setQuiz.jsp" class="btn btn-create">
+                <a href="quiz/setQuiz.jsp?kodeMK=<%= kodeMatkul %>&&kodeKelas=<%= kodeKelas %>" class="btn btn-create">
                     Create Quiz +
                 </a>
             </div>
 
+            
             <!-- Quiz List -->
             <div class="row mt-4">
+                <%
+                    Quiz quiz = new Quiz();
+                    quiz.where("kodeMatkul = '" + kodeMatkul + "' AND kodeKelas = '" + kodeKelas + "'");
+                    ArrayList<Quiz> rs = quiz.get();
+                    for (Quiz item : rs) {
+                %>
                 <!-- Quiz 1 -->
                 <div class="col-md-6 mb-4">
                     <div class="quiz-card d-flex flex-column">
@@ -206,22 +214,29 @@
                             </div>
                             <!-- Details -->
                             <h5 class="pb-2 mt-1 mb-2 fw-bold text-dark border-bottom border-success-emphasis flex-grow-1">
-                                <a href="quiz/nilaiQuiz.jsp" class="text-dark">Quiz 1: Class Diagram</a>
+                                <a href="quiz/nilaiQuiz.jsp?kodeMK=<%= course.getKodeMK()%>&&kodeKelas=<%= course.getKodeKelas() %>&&namaQuiz=<%= item.getNama() %>" class="text-dark"><%= item.getNama() %></a>
                             </h5>
                         </div>
                         <!-- Footer (Closes + Delete Icon) -->
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <div class="flex-grow-1">
                                 <p class="mb-0 text-muted small">
-                                    <strong>Closed:</strong> Tuesday, 31 December 2024, 12:40 PM
+                                    <strong>Closed:</strong> <%= item.getDeskripsi() %>
                                 </p>
                             </div>
-                            <a href='quiz/deleteQuiz?id=(getID)' class="btn btn-sm btn-transparent" title="Delete">
-                                <i class="bi bi-trash3"></i>
-                            </a>
+                            <form method="POST" action="<%= request.getContextPath() %>/quizController?menu=delQuiz">
+                                <input type="hidden" name="kodeMatkul" value="<%= kodeMatkul %>">
+                                <input type="hidden" name="kodeKelas" value="<%= kodeKelas %>">
+                                <input type="hidden" name="nama" value="<%= item.getNama()%>">
+                                <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus quiz ini?');"></i></button>
+                            </form>
+                            
                         </div>
                     </div>
                 </div>
+                <%
+                    }
+                %>
             </div>
         </div>
                         
