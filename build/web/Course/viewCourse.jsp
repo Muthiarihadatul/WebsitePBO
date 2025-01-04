@@ -108,41 +108,41 @@
                 Course course = new Course();
                 course.where("dosenPengampu = '" + userSession.getAttribute("kode") + "'");
                 ArrayList<Course> rs = course.get();
-                for (Course item : rs) { %>
-                    <!-- Course Cards -->
-                    <div class="row g-4">
-                        <div class="col-md-3">
-                            <div class="course-card">
-
-                                <div class="p-3">
-                                    <h6><%= item.getKodeMK() %></h6>
-                                    <h6><%= item.getNama() %></h6>
-                                    <p class="text-muted fw-normal">
-                                        <%= item.getKodeKelas() %>
-                                        <br>
-                                        SKS: <%= (int) item.getSKS() %>
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href='dashboardCourse.jsp?kodeMK=<%= item.getKodeMK()%>&&kodeKelas=<%= item.getKodeKelas() %>' class="btn view-course-btn w-100 fw-semibold me-2">View Course</a>
-                                        <!-- Edit Icon -->
-                                        <a href='editCourse.jsp?kodeMK=<%= item.getKodeMK() %>' class="btn btn-sm btn-transparent me-1" title="Edit">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <!-- Delete Icon -->
-                                        <form method="POST" action="<%= request.getContextPath() %>/courseController?menu=del">
-                                            <input type="hidden" name="kodeMatkul" value="<%= item.getKodeMK()%>">
-                                            <input type="hidden" name="kodeKelas" value="<%= item.getKodeKelas() %>">
-                                            <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?');"></i></button>
-                                        </form>
-                                    </div>
+            %>
+            <!-- Course Cards -->
+            <div class="row g-4">
+                <% for (Course item : rs) { %>
+                    <div class="col-md-4"> <!-- Menggunakan col-md-4 agar 3 card sejajar -->
+                        <div class="course-card">
+                            <div class="p-3">
+                                <h6><%= item.getKodeMK() %></h6>
+                                <h6><%= item.getNama() %></h6>
+                                <p class="text-muted fw-normal">
+                                    <%= item.getKodeKelas() %>
+                                    <br>
+                                    SKS: <%= (int) item.getSKS() %>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href='dashboardCourse.jsp?kodeMK=<%= item.getKodeMK()%>&&kodeKelas=<%= item.getKodeKelas() %>' class="btn view-course-btn w-100 fw-semibold me-2">View Course</a>
+                                    <!-- Edit Icon -->
+                                    <a href='editCourse.jsp?kodeMK=<%= item.getKodeMK() %>' class="btn btn-sm btn-transparent me-1" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <!-- Delete Icon -->
+                                    <form method="POST" action="<%= request.getContextPath() %>/courseController?menu=del">
+                                        <input type="hidden" name="kodeMatkul" value="<%= item.getKodeMK()%>">
+                                        <input type="hidden" name="kodeKelas" value="<%= item.getKodeKelas() %>">
+                                        <button type="submit" class="btn btn-sm btn-transparent">
+                                            <i class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus mata kuliah ini?');"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <%        
-                }
-            %>
+                <% } %>
+            </div>
+
 
             
 
