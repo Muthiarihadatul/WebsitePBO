@@ -73,15 +73,18 @@ public class quizController extends HttpServlet {
                     mqModel.insert();
                 }
             }
-        } else if ("upd".equals(menu)) {
+        } else if ("updNilai".equals(menu)) {
             String nama = request.getParameter("nama");
-            String deskripsi = request.getParameter("deskripsi");
-
-            quizModel.setNama(nama);
-            quizModel.setKodeMK(kodeMK);
-            quizModel.setDeskripsi(deskripsi);
-            quizModel.setKodeKelas(kodeKls);
-            quizModel.update();
+            String nim = request.getParameter("nim");
+            int nilai = Integer.parseInt(request.getParameter("nilai"));
+            
+            Mahasiswa_Quiz mqModel = new Mahasiswa_Quiz();
+            mqModel.setNIM(nim);
+            mqModel.setNilai(nilai);
+            mqModel.setNamaQuiz(nama);
+            mqModel.setKodeKelas(kodeKls);
+            mqModel.where("nim = '" + nim + "' AND namaQuiz = '" + nama + "'");
+            mqModel.update2();
 
         } else if ("delQuiz".equals(menu)) {
             String nama = request.getParameter("nama");
@@ -101,7 +104,6 @@ public class quizController extends HttpServlet {
             mqModel.setKodeKelas(kodeKls);
             mqModel.where("nim = '" + nim + "' AND namaQuiz = '" + nama + "'");
             mqModel.update2();
-            
         }
 
         response.sendRedirect("Course/dashboardCourse.jsp?kodeMK=" + kodeMK + "&&kodeKelas=" + kodeKls);
