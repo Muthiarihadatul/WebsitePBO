@@ -6,6 +6,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import model.Course;
 import model.Mahasiswa;
 import model.Course_Mahasiswa;
+import model.Mahasiswa_Quiz;
+import model.Quiz;
 
 /**
  *
@@ -53,7 +56,17 @@ public class mahasiswaController extends HttpServlet {
             cmModel.setKodeMK(kodeMatkul);
             cmModel.setNIM(nim);
             cmModel.insert();
-            
+            Quiz quizModel = new Quiz();
+            quizModel.where("kodeMatkul = '" + kodeMatkul + "' AND kodeKelas = '" + kodeKelas + "'");
+            ArrayList<Quiz> quizModels = quizModel.get();
+            for (Quiz quiz : quizModels) {
+                Mahasiswa_Quiz mq = new Mahasiswa_Quiz();
+                mq.setNIM(String.valueOf(nim));
+                mq.setNilai(0);
+                mq.setNamaQuiz(quiz.getNama());
+                mq.setKodeKelas(kodeKelas);
+                mq.insert();
+            }
         } else if ("del".equals(menu)) {
             int nim = Integer.parseInt(request.getParameter("nim"));
             cmModel.setNIM(nim);

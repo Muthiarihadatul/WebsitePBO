@@ -15,7 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Course;
+import model.Course_Mahasiswa;
 import model.DosenKoor;
+import model.Mahasiswa_Quiz;
+import model.Quiz;
 
 /**
  *
@@ -82,6 +85,25 @@ public class courseController extends HttpServlet {
             String kodeMatkul = request.getParameter("kodeMatkul");
             courseModel.setKodeMK(kodeMatkul);
             courseModel.delete();
+            Quiz quizModel = new Quiz();
+            quizModel.where("kodeMatkul = '" + kodeMatkul + "'");
+            ArrayList<Quiz> quizModels = quizModel.get();
+            for (Quiz quiz : quizModels) {
+                Quiz q = new Quiz();
+                q.setNama(quiz.getNama());
+                q.delete();
+                Mahasiswa_Quiz mqModel = new Mahasiswa_Quiz();
+                mqModel.setNamaQuiz(q.getNama());
+                mqModel.delete();
+            }
+            Course_Mahasiswa cmModel = new Course_Mahasiswa();
+            cmModel.where("kodeMatkul = '" + kodeMatkul + "'");
+            ArrayList<Course_Mahasiswa> cmModels = cmModel.get();
+            for (Course_Mahasiswa cms : cmModels) {
+                Course_Mahasiswa cm = new Course_Mahasiswa();
+                cm.setNIM(cms.getNIM());
+                cm.delete();
+            }
         }
 
         response.sendRedirect("Course/viewCourse.jsp");
