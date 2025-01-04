@@ -4,6 +4,7 @@
     Author     : Muthia Rihadatul
 --%>
 
+<%@page import="java.net.URLEncoder"%>
 <%@page import="model.Mahasiswa"%>
 <%@page import="model.Mahasiswa_Quiz"%>
 <%@page import="java.util.ArrayList"%>
@@ -140,9 +141,14 @@
                         <td><%= item.getNilai() %></td>
                         <!-- Edit Icon -->
                         <td>
-                            <a href='editNilaiQuiz.jsp?id=(getID)' class="btn btn-sm btn-warning" title="Edit">
-                                <i class="bi bi-pencil"></i>
-                            </a>
+                            <%String encodedNama = URLEncoder.encode(namaQuiz, "UTF-8");%>
+                            <form method="GET" action="editNilaiQuiz.jsp">
+                                <input type="hidden" name="kodeKelas" value="<%= kodeKelas%>">
+                                <input type="hidden" name="nim" value="<%= item.getNim()%>">
+                                <input type="hidden" name="nama" value="<%= encodedNama%>">
+                                <input type="hidden" name="kodeMatkul" value="<%= kodeMatkul %>">
+                                <button type="submit" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></i></button>
+                            </form>
                         </td>
                         <td>
                             <form method="POST" action="<%= request.getContextPath() %>/quizController?menu=delNilai">
@@ -153,7 +159,6 @@
                                 <button type="submit" class="btn btn-sm btn-danger"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus nilai ini?');"></i></button>
                             </form>
                         </td>
-                        
                     </tr>
                     <%
                         }
