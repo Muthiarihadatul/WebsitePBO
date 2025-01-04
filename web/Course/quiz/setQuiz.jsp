@@ -1,6 +1,6 @@
 <%-- 
     Document   : setQuiz
-    Created on : Jan 3, 2025, 9:43:05 AM
+    Created on : Jan 3, 2025, 9:43:05 AM
     Author     : Muthia Rihadatul
 --%>
 
@@ -12,7 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
               rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
               crossorigin="anonymous">
-        <title>Lecturo - Pengabdian Masyarakat</title>
+        <title>Lecturo - Buat Quiz</title>
         <!-- Custom CSS -->
         <style>
             body {
@@ -81,17 +81,32 @@
             <div class="modal-content p-5 shadow-lg w-50">
                 <h3 class="mb-4 fw-bold text-dark">Buat Quiz</h3>
                 <!-- Form -->
-                <form action="viewCourse.jsp" method="post">
-                    <!-- Judul Quiz -->
+                <form action="<%= request.getContextPath() %>/quizController?menu=add" method="post">
+                    <!-- Nama Quiz -->
                     <div class="mb-3">
                         <label for="QuizName" class="form-label fw-bolder text-dark">Nama Quiz</label>
-                        <input type="text" class="form-control" id="QuizName" name="QuizName" placeholder="Masukkan nama quiz" required>
+                        <input type="text" class="form-control" id="QuizName" name="nama" placeholder="Masukkan nama quiz" required>
                     </div>
-                    <!-- deadline -->
+
+                    <!-- Kode Mata Kuliah -->
                     <div class="mb-3">
-                        <label for="deadline" class="form-label fw-bolder text-dark">Closed</label>
-                        <input type="text" class="form-control" id="deadline" name="deadline" placeholder="Deadline Quiz" required>
+                        <label for="kodeMatkul" class="form-label fw-bolder text-dark">Kode Mata Kuliah</label>
+                        <input type="text" class="form-control" id="kodeMatkul" name="kodeMatkul" value="<%= request.getParameter("kodeMK") %>" required>
                     </div>
+
+
+                    <!-- Deadline -->
+                    <div class="mb-3">
+                        <label for="deadline" class="form-label fw-bolder text-dark">Deadline</label>
+                        <input type="text" class="form-control" id="deadline" name="deskripsi" placeholder="Masukkan deadline quiz" required>
+                    </div>
+
+                    <!-- Kode Kelas -->
+                    <div class="mb-3">
+                        <label for="kodeKelas" class="form-label fw-bolder text-dark">Kode Kelas</label>
+                        <input type="text" class="form-control" id="kodeKelas" name="kodeKelas" value="<%= request.getParameter("kodeKelas") %>" required>
+                    </div>
+                    
                     <!-- Submit Button -->
                     <div class="text-center">
                         <button type="submit" class="btn btn-create w-100">Tambah</button>
@@ -103,6 +118,6 @@
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                crossorigin="anonymous"></script>
-    </body>
+                crossorigin="anonymous"></script> 
+    </body> 
 </html>
