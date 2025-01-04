@@ -108,7 +108,7 @@
                     <a href="login.jsp" class="btn btn-custom btn-lg">Masuk!</a>
                 </div>
                 <div class="col-lg-6 text-center">
-                    <img src="https://partnership.telkomuniversity.ac.id/wp-content/uploads/2022/03/Telkom-University-Landmark-Tower-TULT-yang-rencana-selesai-Juni-2021-640x381-1.jpg" alt="Welcome Image" class="img-fluid rounded shadow">
+                    <img src="https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/332/2023/11/24/Telkom-uang-pangkal-3501352147.jpg" alt="Welcome Image" class="img-fluid rounded shadow">
                 </div>
             </div>
         </div>

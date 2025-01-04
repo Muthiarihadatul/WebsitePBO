@@ -113,41 +113,48 @@
                 Abdimas abdimas = new Abdimas();
                 DAModel.where("kodeDosen = '" + userSession.getAttribute("kode") + "'");
                 ArrayList<Dosen_Abdimas> das = DAModel.get();
-                for (Dosen_Abdimas dp : das) { 
-                    abdimas = abdimasModel.find(String.valueOf(dp.getKodeAbdimas()));
             %>
-            <!-- Abdimas Cards -->
-            <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="abdimas-card">
-                        
-                        <div class="p-3">
-                            <h6><%= abdimas.getNama() %></h6>
-                            <p class="text-muted fw-normal">
-                                <% SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
-                                   String formattedDate = outputFormat.format(abdimas.getTanggal()); %>
-                                Tanggal : <%= formattedDate %>
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href='dashboardAbdimas.jsp?kode=<%= abdimas.getKode()%>' class="btn view-abdimas-btn w-100 fw-semibold me-2">View Abdimas</a>
-                                <!-- Edit Icon -->
-                                <a href='editAbdimas.jsp?kode=<%= abdimas.getKode()%>' class="btn btn-sm btn-transparent me-1" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <!-- Delete Icon -->
-                                <form method="POST" action="<%= request.getContextPath() %>/abdimasController?menu=del">
-                                    <input type="hidden" name="kode" value="<%= abdimas.getKode()%>">
-                                    <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus abdimas ini?');"></i></button>
-                                </form>
+            <div class="container">
+                <div class="row g-4">
+                    <% for (Dosen_Abdimas dp : das) { 
+                        abdimas = abdimasModel.find(String.valueOf(dp.getKodeAbdimas()));
+                    %>
+                    <!-- Abdimas Card -->
+                    <div class="col-md-4">
+                        <div class="abdimas-card shadow-sm rounded">
+                            <div class="p-3">
+                                <h6><%= abdimas.getNama() %></h6>
+                                <p class="text-muted fw-normal">
+                                    <% 
+                                        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+                                        String formattedDate = outputFormat.format(abdimas.getTanggal()); 
+                                    %>
+                                    Tanggal : <%= formattedDate %>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href='dashboardAbdimas.jsp?kode=<%= abdimas.getKode() %>' 
+                                       class="btn view-abdimas-btn w-100 fw-semibold me-2">View Abdimas</a>
+                                    <!-- Edit Icon -->
+                                    <a href='editAbdimas.jsp?kode=<%= abdimas.getKode() %>' 
+                                       class="btn btn-sm btn-transparent me-1" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <!-- Delete Icon -->
+                                    <form method="POST" action="<%= request.getContextPath() %>/abdimasController?menu=del" class="d-inline">
+                                        <input type="hidden" name="kode" value="<%= abdimas.getKode() %>">
+                                        <button type="submit" class="btn btn-sm btn-transparent" 
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus abdimas ini?');">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
-            <%
-                }
-            %>
-        </div>
+
 
         <!-- Bootstrap Bundle JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
