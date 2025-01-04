@@ -206,17 +206,14 @@
                             </div>
                             <!-- Details -->
                             <h5 class="pb-2 mt-1 mb-2 fw-bold text-dark border-bottom border-success-emphasis flex-grow-1">
-                                Quiz 1: Class Diagram
+                                <a href="quiz/nilaiQuiz.jsp" class="text-dark">Quiz 1: Class Diagram</a>
                             </h5>
                         </div>
                         <!-- Footer (Closes + Delete Icon) -->
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <div class="flex-grow-1">
-                                <p class="mb-1 text-muted small">
-                                    <strong>Opened:</strong> Tuesday, 24 December 2024, 12:40 PM
-                                </p>
                                 <p class="mb-0 text-muted small">
-                                    <strong>Closes:</strong> Tuesday, 31 December 2024, 12:40 PM
+                                    <strong>Closed:</strong> Tuesday, 31 December 2024, 12:40 PM
                                 </p>
                             </div>
                             <a href='quiz/deleteQuiz?id=(getID)' class="btn btn-sm btn-transparent" title="Delete">

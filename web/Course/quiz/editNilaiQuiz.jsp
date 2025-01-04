@@ -1,10 +1,9 @@
 <%-- 
-    Document   : addCourse
-    Created on : 15 Dec 2024, 12.07.01
-    Author     : Azra Feby Awfiyah
+    Document   : editNilaiQuiz
+    Created on : Jan 3, 2025, 9:43:38 AM
+    Author     : Muthia Rihadatul
 --%>
 
-<%@page import="model.Dosen"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,8 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
               rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
               crossorigin="anonymous">
-        <title>Lecturo - Tambah Course</title>
-        <!-- Custom CSS -->
+        <title>Lecturo - Edit Abdimas</title>
         <style>
             body {
                 background-color: #004643; /* Warna latar belakang */
@@ -67,7 +65,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
@@ -80,50 +78,28 @@
         <!-- Main Content -->
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
-                <h3 class="mb-4 fw-bold text-dark">Create Course</h3>
+                <h3 class="mb-4 fw-bold text-dark text-center">Edit Nilai Quiz</h3>
+                <div class="p-0 text-black">
+                    <p>NIM : 1301223248</p>
+                    <p>Nama: Muthia Rihadatul Aisyi</p>
+                    </div>
                 <!-- Form -->
-                <form action="<%= request.getContextPath() %>/courseController?menu=add" method="post">
-                    <!-- Kode Mata Kuliah -->
+                <form action="nilaiQuiz.jsp" method="post">
+                    <input type="hidden" name="id" value="id">
+                    <!-- Nama Abdimas -->
                     <div class="mb-3">
-                        <label for="courseCode" class="form-label fw-bolder text-dark">Kode Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseCode" name="kodeMatkul" placeholder="isi kode mata kuliah" required>
+                        <label for="nilaiQuiz" class="form-label text-dark">Nilai Quiz</label>
+                        <input type="number" class="form-control" id="nilaiQuiz" name="nilaiQuiz" value=100 required>
                     </div>
-                    <!-- Nama Mata Kuliah -->
-                    <div class="mb-3">
-                        <label for="courseName" class="form-label fw-bolder text-dark">Nama Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseName" name="nama" placeholder="isi nama mata kuliah" required>
-                    </div>
-                    <!-- Kelas -->
-                    <div class="mb-3">
-                        <label for="classCode" class="form-label fw-bolder text-dark">Kelas</label>
-                        <input type="text" class="form-control" id="classCode" name="kodeKelas" placeholder="isi kelas" required>
-                    </div>
-                    <!-- SKS -->
-                    <div class="mb-3">
-                        <label for="sks" class="form-label fw-bolder text-dark">SKS</label>
-                        <input type="number" class="form-control" id="sks" name="sks" placeholder="isi sks" required>
-                    </div>
-                    <!-- Kode Dosen Koor -->
-                    <div class="mb-3">
-                        <label for="kodeDosenK" class="form-label fw-bolder text-dark">Kode Dosen Koor</label>
-                        <input type="text" class="form-control" id="kodeDosenK" name="kodeDosenK" placeholder="isi kode dosen koor" required>
-                    </div>
-                    <!-- Dosen -->
-                    <%
-                        HttpSession userSession = request.getSession();
-                        Dosen dosenModel = new Dosen();
-                        Dosen dosen = dosenModel.find(String.valueOf(userSession.getAttribute("kode")));
-                    %>
-                    <p class="text-black fw-bolder">Dosen: <%= dosen.getNama() %> [<%= dosen.getKode()%>]</p>
-                    <input type="hidden" name="dosenPengampu" value="<%= dosen.getKode()%>">
+                   
                     <!-- Submit Button -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-create w-100"">Tambah</button>
+                        <button type="submit" class="btn btn-create w-100">Edit</button>
                     </div>
                 </form>
             </div>
         </div>
-
+        
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

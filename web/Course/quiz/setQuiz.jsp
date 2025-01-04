@@ -1,10 +1,9 @@
 <%-- 
-    Document   : addCourse
-    Created on : 15 Dec 2024, 12.07.01
-    Author     : Azra Feby Awfiyah
+    Document   : setQuiz
+    Created on : Jan 3, 2025, 9:43:05 AM
+    Author     : Muthia Rihadatul
 --%>
 
-<%@page import="model.Dosen"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +12,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
               rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
               crossorigin="anonymous">
-        <title>Lecturo - Tambah Course</title>
+        <title>Lecturo - Buat Quiz</title>
         <!-- Custom CSS -->
         <style>
             body {
@@ -54,7 +53,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard.jsp">
+                <a class="navbar-brand" href="#">
                     <div class="circle"></div>
                     Lecturo
                 </a>
@@ -64,13 +63,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/Course/viewCourse.jsp">Mata Kuliah</a>
+                            <a class="nav-link" href="viewCourse.jsp">Mata Kuliah</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/penelitian/viewPenelitian.jsp">Penelitian</a>
+                            <a class="nav-link" href="viewPenelitian.jsp">Penelitian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/abdimas/viewAbdimas.jsp">Pengabdian Masyarakat</a>
+                            <a class="nav-link" href="viewAbdimas.jsp">Pengabdian Masyarakat</a>
                         </li>
                     </ul>
                 </div>
@@ -80,45 +79,37 @@
         <!-- Main Content -->
         <div class="container d-flex justify-content-center align-items-center p-4">
             <div class="modal-content p-5 shadow-lg w-50">
-                <h3 class="mb-4 fw-bold text-dark">Create Course</h3>
+                <h3 class="mb-4 fw-bold text-dark">Buat Quiz</h3>
                 <!-- Form -->
-                <form action="<%= request.getContextPath() %>/courseController?menu=add" method="post">
+                <form action="<%= request.getContextPath() %>/quizController?menu=add" method="post">
+                    <!-- Nama Quiz -->
+                    <div class="mb-3">
+                        <label for="QuizName" class="form-label fw-bolder text-dark">Nama Quiz</label>
+                        <input type="text" class="form-control" id="QuizName" name="nama" placeholder="Masukkan nama quiz" required>
+                    </div>
+
                     <!-- Kode Mata Kuliah -->
                     <div class="mb-3">
-                        <label for="courseCode" class="form-label fw-bolder text-dark">Kode Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseCode" name="kodeMatkul" placeholder="isi kode mata kuliah" required>
+                        <label for="kodeMatkul" class="form-label fw-bolder text-dark">Kode Mata Kuliah</label>
+                        <input type="text" class="form-control" id="kodeMatkul" name="kodeMatkul" value="<%= request.getParameter("kodeMK") %>" required>
                     </div>
-                    <!-- Nama Mata Kuliah -->
+
+
+                    <!-- Deadline -->
                     <div class="mb-3">
-                        <label for="courseName" class="form-label fw-bolder text-dark">Nama Mata Kuliah</label>
-                        <input type="text" class="form-control" id="courseName" name="nama" placeholder="isi nama mata kuliah" required>
+                        <label for="deadline" class="form-label fw-bolder text-dark">Deadline</label>
+                        <input type="text" class="form-control" id="deadline" name="deskripsi" placeholder="Masukkan deadline quiz" required>
                     </div>
-                    <!-- Kelas -->
+
+                    <!-- Kode Kelas -->
                     <div class="mb-3">
-                        <label for="classCode" class="form-label fw-bolder text-dark">Kelas</label>
-                        <input type="text" class="form-control" id="classCode" name="kodeKelas" placeholder="isi kelas" required>
+                        <label for="kodeKelas" class="form-label fw-bolder text-dark">Kode Kelas</label>
+                        <input type="text" class="form-control" id="kodeKelas" name="kodeKelas" value="<%= request.getParameter("kodeKelas") %>" required>
                     </div>
-                    <!-- SKS -->
-                    <div class="mb-3">
-                        <label for="sks" class="form-label fw-bolder text-dark">SKS</label>
-                        <input type="number" class="form-control" id="sks" name="sks" placeholder="isi sks" required>
-                    </div>
-                    <!-- Kode Dosen Koor -->
-                    <div class="mb-3">
-                        <label for="kodeDosenK" class="form-label fw-bolder text-dark">Kode Dosen Koor</label>
-                        <input type="text" class="form-control" id="kodeDosenK" name="kodeDosenK" placeholder="isi kode dosen koor" required>
-                    </div>
-                    <!-- Dosen -->
-                    <%
-                        HttpSession userSession = request.getSession();
-                        Dosen dosenModel = new Dosen();
-                        Dosen dosen = dosenModel.find(String.valueOf(userSession.getAttribute("kode")));
-                    %>
-                    <p class="text-black fw-bolder">Dosen: <%= dosen.getNama() %> [<%= dosen.getKode()%>]</p>
-                    <input type="hidden" name="dosenPengampu" value="<%= dosen.getKode()%>">
+                    
                     <!-- Submit Button -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-create w-100"">Tambah</button>
+                        <button type="submit" class="btn btn-create w-100">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -127,6 +118,6 @@
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                crossorigin="anonymous"></script>
-    </body>
+                crossorigin="anonymous"></script> 
+    </body> 
 </html>

@@ -113,42 +113,44 @@
                 Penelitian penelitian = new Penelitian();
                 DPModel.where("kodeDosen = '" + userSession.getAttribute("kode") + "'");
                 ArrayList<Dosen_Penelitian> dps = DPModel.get();
-                for (Dosen_Penelitian dp : dps) { 
-                    penelitian = penelitianModel.find(String.valueOf(dp.getKodePenelitian()));
             %>
             <!-- Penelitian Cards -->
             <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="penelitian-card">
-                        
-                        <div class="p-3">
-                            <h6><%= penelitian.getNama() %></h6>
-                            <h6><%= penelitian.getBidang() %></h6>
-                            <p class="text-muted fw-normal">
-                                <% SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
-                                   String formattedDate = outputFormat.format(penelitian.getTanggal()); %>
-                                Tanggal : <%= formattedDate %>
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href='dashboardPenelitian.jsp?kode=<%= penelitian.getKode()%>' class="btn view-penelitian-btn w-100 fw-semibold me-2">View Penelitian</a>
-                                <!-- Edit Icon -->
-                                <a href='editPenelitian.jsp?kode=<%= penelitian.getKode()%>' class="btn btn-sm btn-transparent me-1" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <!-- Delete Icon -->
-                                <form method="POST" action="<%= request.getContextPath() %>/penelitianController?menu=del">
-                                    <input type="hidden" name="kode" value="<%= penelitian.getKode()%>">
-                                    <button type="submit" class="btn btn-sm btn-transparent"><i type="button" class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus penelitian ini?');"></i></button>
-                                </form>
+                <% for (Dosen_Penelitian dp : dps) { 
+                    penelitian = penelitianModel.find(String.valueOf(dp.getKodePenelitian()));
+                %>
+                    <div class="col-md-4"> <!-- Menggunakan col-md-4 agar 3 card sejajar -->
+                        <div class="penelitian-card">
+                            <div class="p-3">
+                                <h6><%= penelitian.getNama() %></h6>
+                                <h6><%= penelitian.getBidang() %></h6>
+                                <p class="text-muted fw-normal">
+                                    <% 
+                                        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy");
+                                        String formattedDate = outputFormat.format(penelitian.getTanggal()); 
+                                    %>
+                                    Tanggal : <%= formattedDate %>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href='dashboardPenelitian.jsp?kode=<%= penelitian.getKode()%>' class="btn view-penelitian-btn w-100 fw-semibold me-2">View Penelitian</a>
+                                    <!-- Edit Icon -->
+                                    <a href='editPenelitian.jsp?kode=<%= penelitian.getKode()%>' class="btn btn-sm btn-transparent me-1" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <!-- Delete Icon -->
+                                    <form method="POST" action="<%= request.getContextPath() %>/penelitianController?menu=del">
+                                        <input type="hidden" name="kode" value="<%= penelitian.getKode()%>">
+                                        <button type="submit" class="btn btn-sm btn-transparent">
+                                            <i class="bi bi-trash3" onclick="return confirm('Apakah Anda yakin ingin menghapus penelitian ini?');"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                <% } %>
             </div>
-            <%
-                }
-            %>
-        </div>
+
 
         <!-- Bootstrap Bundle JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
